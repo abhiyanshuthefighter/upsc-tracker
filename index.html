@@ -1,0 +1,3354 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>UPSC Maths Optional & GS Master Prep Tracker</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              50: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+              950: '#1e1b4b',
+            },
+            maths: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+            },
+            gs: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              500: '#f97316',
+              600: '#ea580c',
+              700: '#c2410c',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbars & touch optimizations */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    .dark ::-webkit-scrollbar-thumb { background: #475569; }
+    .touch-callout-none { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+    .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 16px); }
+  </style>
+</head>
+<body class="h-full bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased flex flex-col overflow-hidden selection:bg-brand-500 selection:text-white">
+
+  <!-- TOP APP BAR (Android Material 3 Header) -->
+  <header class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 z-30 shrink-0 sticky top-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
+      <!-- Title & Emblem -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-500 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-brand-500/20">
+          <span>∑</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-bold text-base sm:text-lg leading-tight tracking-tight text-slate-900 dark:text-white">UPSC Maths & GS</h1>
+            <span class="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800">Mains & Prelims</span>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:block">Mathematics Optional + GS 1-4 + Prelims Task Maker</p>
+        </div>
+      </div>
+
+      <!-- Action items: Prelims Countdown, Streak, Drive Sync, Dark mode -->
+      <div class="flex items-center gap-2">
+        <!-- Quick Prelims Pill -->
+        <button id="btnTopPrelimsPill" class="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs font-semibold" title="Click to view Prelims Countdown">
+          <span>🎯 Prelims:</span>
+          <span id="topPrelimsCountdownText" class="font-bold">-- d</span>
+        </button>
+
+        <!-- Quick Optional Pill -->
+        <button id="btnTopOptionalPill" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-xs font-semibold" title="Click to view Maths Optional Exam Countdown">
+          <span>∑ Optional:</span>
+          <span id="topOptionalCountdownText" class="font-bold">-- d</span>
+        </button>
+
+        <!-- Streak badge -->
+        <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-400 text-xs font-semibold" title="Preparation Streak">
+          <svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.527.82-1.124 2.112-1.393 3.328-.316 1.425-.19 2.91.43 4.148.117.234.09.516-.07.728a.75.75 0 01-1.066.07c-.443-.377-.853-.82-1.226-1.314a.75.75 0 00-1.25.792c.627.989 1.42 1.838 2.348 2.483.27.188.583.312.912.361.353.053.71.042 1.055-.034a5.002 5.002 0 003.882-3.882c.076-.345.087-.702.034-1.055a3.298 3.298 0 00-.361-.912c-.645-.928-1.494-1.72-2.483-2.348a.75.75 0 00-.792 1.25c.494.373.937.783 1.314 1.226.068.08.19.106.276.046a.75.75 0 00.07-1.066c-.212-.16-.494-.187-.728-.07-1.238.62-2.723.746-4.148.43-1.216-.269-2.508-.866-3.328-1.393a4.04 4.04 0 01-.88-.822.75.75 0 00-.385-1.45z" clip-rule="evenodd"/>
+          </svg>
+          <span id="streakCount">0</span>d
+        </div>
+
+        <!-- Google Drive Sync Button -->
+        <button id="btnOpenDriveSync" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-medium transition-all shadow-sm active:scale-95">
+          <svg class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7.71 3.5L1.15 15l3.43 6l6.55-11.5L7.71 3.5zm1.72 1.5l5.14 9h7.43l-5.14-9H9.43zm-3.71 12l2.28 4h14l-2.28-4H5.72z"/>
+          </svg>
+          <span class="hidden sm:inline">Drive Sync</span>
+          <span id="syncIndicator" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        </button>
+
+        <!-- Dark Mode Toggle -->
+        <button id="btnThemeToggle" aria-label="Toggle Dark Mode" class="p-2 rounded-xl text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 transition">
+          <svg id="themeIconSun" class="w-4 h-4 hidden dark:block text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+          <svg id="themeIconMoon" class="w-4 h-4 block dark:hidden text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN SCROLLABLE CONTENT AREA -->
+  <main class="flex-1 overflow-y-auto pb-24 px-3 sm:px-6 pt-4 max-w-7xl mx-auto w-full">
+
+    <!-- VIEW 1: MATHS OPTIONAL TRACKER -->
+    <section id="viewMaths" class="space-y-4 block">
+      <!-- Overview Banner Card -->
+      <div class="bg-gradient-to-br from-indigo-900 via-brand-800 to-indigo-950 text-white rounded-3xl p-5 shadow-lg relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 w-36 h-36 bg-brand-500/10 rounded-full blur-2xl"></div>
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-500/30 text-brand-200 border border-brand-400/20">Maths Optional 500M</span>
+              <span id="mathsOverallBadge" class="text-xs text-brand-200 font-medium">0% Completed</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-extrabold mt-1 tracking-tight">Paper 1 & Paper 2 Syllabus Tracker</h2>
+            <p class="text-xs sm:text-sm text-brand-200/80 mt-1 max-w-xl">
+              Strict 8-checkpoint workflow: Click on any checkpoint to set Status (Pending / In Progress / Completed), Target Date, and detailed Memos! Upload short notes PDFs directly.
+            </p>
+          </div>
+
+          <!-- Quick Progress Bar & Stats -->
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/10 min-w-[260px]">
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>Overall Optional Progress</span>
+              <span id="mathsProgressPercent">0%</span>
+            </div>
+            <div class="w-full bg-black/30 rounded-full h-2.5 overflow-hidden">
+              <div id="mathsProgressBar" class="bg-gradient-to-r from-emerald-400 to-teal-300 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <div class="grid grid-cols-2 gap-2 mt-3 pt-2 border-t border-white/10 text-[11px] text-brand-100">
+              <div>Paper 1: <span id="mathsP1Summary" class="font-bold text-white">0/6 Done</span></div>
+              <div>Paper 2: <span id="mathsP2Summary" class="font-bold text-white">0/7 Done</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Maths Optional Exam Countdown Widget -->
+        <div class="mt-4 pt-3 border-t border-white/15 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/30 text-emerald-200 border border-emerald-400/30">Mains Optional D-Day</span>
+            <span class="text-brand-200">Target Date: <strong id="optionalDateDisplay" class="text-white font-bold">Sep 20, 2026</strong></span>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <span class="text-brand-200">Remaining:</span>
+            <span id="optionalDaysCount" class="text-sm font-black px-3 py-1 rounded-xl bg-white/20 text-white border border-white/20 shadow-xs">-- Days</span>
+            <button id="btnEditOptionalDate" class="px-2.5 py-1 rounded-xl bg-white/15 hover:bg-white/25 text-white text-[11px] font-semibold transition active:scale-95 flex items-center gap-1 border border-white/10" title="Change Target Optional Exam Date">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+              <span>Set Optional Date</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls: Paper 1 / Paper 2 Tabs & Search/Filter -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white dark:bg-slate-900 p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <!-- Paper Filter Tabs -->
+        <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl self-start sm:self-auto">
+          <button id="tabMathsAll" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition active:scale-95 bg-white dark:bg-slate-700 text-brand-600 dark:text-white shadow-xs">All Topics (13)</button>
+          <button id="tabMathsP1" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition active:scale-95 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">Paper 1 (6)</button>
+          <button id="tabMathsP2" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition active:scale-95 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">Paper 2 (7)</button>
+        </div>
+
+        <!-- Stage Filter & Search -->
+        <div class="flex items-center gap-2">
+          <div class="relative flex-1 sm:w-56">
+            <input type="text" id="mathsSearchInput" placeholder="Search topic or theorem..." class="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </div>
+          <select id="mathsStageFilter" class="text-xs px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <option value="all">All Stages</option>
+            <option value="in_progress">Has Items In Progress</option>
+            <option value="pending">Has Pending Checkpoints</option>
+            <option value="completed">Fully Completed Topics</option>
+            <option value="has_notes">Has Uploaded Short Notes</option>
+            <option value="has_target">Has Target Dates</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Topics Cards Grid -->
+      <div id="mathsTopicsContainer" class="grid grid-cols-1 gap-4">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- VIEW 2: GS 1-4 TRACKER -->
+    <section id="viewGS" class="space-y-4 hidden">
+      <!-- GS Overview Banner Card -->
+      <div class="bg-gradient-to-br from-amber-700 via-orange-600 to-amber-900 text-white rounded-3xl p-5 shadow-lg relative overflow-hidden">
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/20 text-orange-100 border border-white/20">General Studies Mains</span>
+              <span id="gsOverallBadge" class="text-xs text-orange-200 font-medium">0% Completed</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-extrabold mt-1 tracking-tight">GS Papers 1, 2, 3 & 4 Tracker</h2>
+            <p class="text-xs sm:text-sm text-orange-100/80 mt-1 max-w-xl">
+              Track 4 Core Parameters: Short Notes, 1 Revision for Mains, Current Affairs Revision 1 & Keyword Extraction from Class Notes with Target Dates and Memos.
+            </p>
+          </div>
+
+          <!-- GS Summary Progress -->
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/10 min-w-[260px]">
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>Overall GS Completion</span>
+              <span id="gsProgressPercent">0%</span>
+            </div>
+            <div class="w-full bg-black/30 rounded-full h-2.5 overflow-hidden">
+              <div id="gsProgressBar" class="bg-gradient-to-r from-yellow-300 to-amber-200 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <div class="grid grid-cols-4 gap-1 mt-3 pt-2 border-t border-white/10 text-[10px] text-orange-100 text-center font-medium">
+              <div>GS1: <span id="gs1Score" class="font-bold text-white">0%</span></div>
+              <div>GS2: <span id="gs2Score" class="font-bold text-white">0%</span></div>
+              <div>GS3: <span id="gs3Score" class="font-bold text-white">0%</span></div>
+              <div>GS4: <span id="gs4Score" class="font-bold text-white">0%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GS Paper Tabs -->
+      <div class="flex items-center gap-1 bg-white dark:bg-slate-900 p-2 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-x-auto">
+        <button id="tabGSAll" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition active:scale-95 bg-orange-600 text-white shadow-xs shrink-0">All GS Papers</button>
+        <button id="tabGS1" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition active:scale-95 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white shrink-0">GS 1: History, Society, Geo</button>
+        <button id="tabGS2" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition active:scale-95 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white shrink-0">GS 2: Polity & IR</button>
+        <button id="tabGS3" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition active:scale-95 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white shrink-0">GS 3: Economy, S&T, Env</button>
+        <button id="tabGS4" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition active:scale-95 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white shrink-0">GS 4: Ethics, Integrity</button>
+      </div>
+
+      <!-- GS Modules Container -->
+      <div id="gsModulesContainer" class="grid grid-cols-1 gap-4">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- VIEW 3: KEYWORD EXTRACTION & VAULT -->
+    <section id="viewKeywords" class="space-y-4 hidden">
+      <!-- Header -->
+      <div class="bg-gradient-to-br from-emerald-800 via-teal-700 to-slate-900 text-white rounded-3xl p-5 shadow-lg relative overflow-hidden">
+        <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">Keyword & Keyword Extractor Vault</h2>
+        <p class="text-xs sm:text-sm text-emerald-100/80 mt-1 max-w-2xl">
+          Extract high-yield keywords, constitutional articles, committee names, Supreme Court judgments, and mathematical theorem tags from your class notes and editorial readings.
+        </p>
+      </div>
+
+      <!-- Keyword Extraction Tool Card -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+        <h3 class="font-bold text-sm text-slate-800 dark:text-slate-200 flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+          Quick Smart Keyword Extractor from Notes
+        </h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400">
+          Paste your class lecture transcript, editorial summary, or revision notes below. The smart engine will parse key terms, articles, commissions, and formula tags.
+        </p>
+        
+        <textarea id="kwExtractorInput" rows="3" placeholder="Paste text here e.g. 'According to Sarkaria Commission and Punchhi Commission on Article 356, Cooperative Federalism requires Inter-State Council under Article 263...'" class="w-full text-xs p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
+
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+          <div class="flex items-center gap-2">
+            <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">Assign Subject:</label>
+            <select id="kwAssignSubject" class="text-xs px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+              <option value="GS1">GS 1 (History, Society, Geo)</option>
+              <option value="GS2" selected>GS 2 (Polity, IR, Governance)</option>
+              <option value="GS3">GS 3 (Economy, Env, S&T)</option>
+              <option value="GS4">GS 4 (Ethics, Integrity)</option>
+              <option value="Maths P1">Maths Paper 1</option>
+              <option value="Maths P2">Maths Paper 2</option>
+              <option value="Current Affairs">Current Affairs</option>
+            </select>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button id="btnRunKeywordExtraction" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs shadow-sm transition active:scale-95 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+              </svg>
+              Extract & Save Keywords
+            </button>
+            <button id="btnManualAddKeyword" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold transition active:scale-95">
+              + Custom Keyword
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Keywords Filter & Repository -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <h3 class="font-bold text-sm text-slate-800 dark:text-slate-200">Extracted Keywords Vault</h3>
+            <span id="keywordCountBadge" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold">0 Keywords</span>
+          </div>
+
+          <!-- Subject filter buttons -->
+          <div class="flex items-center gap-1 overflow-x-auto pb-1">
+            <button id="filterKwAll" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-600 text-white shrink-0">All</button>
+            <button id="filterKwGS1" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0">GS1</button>
+            <button id="filterKwGS2" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0">GS2</button>
+            <button id="filterKwGS3" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0">GS3</button>
+            <button id="filterKwGS4" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0">GS4</button>
+            <button id="filterKwMaths" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0">Maths</button>
+          </div>
+        </div>
+
+        <!-- Keyword Tags Cloud -->
+        <div id="keywordTagsContainer" class="flex flex-wrap gap-2 min-h-[100px] p-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-slate-500 pt-2 border-t border-slate-100 dark:border-slate-800">
+          <span>Tip: Click on any keyword tag to instantly copy it for Mains answer writing!</span>
+          <button id="btnCopyAllKeywords" class="text-brand-600 dark:text-brand-400 hover:underline font-semibold">Copy All Filtered</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: DAILY HABITS & PRELIMS TASK MAKER -->
+    <section id="viewChecklist" class="space-y-4 hidden">
+      <!-- Prelims Countdown & Milestone Banner -->
+      <div class="bg-gradient-to-br from-rose-900 via-indigo-900 to-slate-950 text-white rounded-3xl p-5 shadow-lg relative overflow-hidden">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-rose-500/30 text-rose-200 border border-rose-400/30">Target Milestone</span>
+              <span id="prelimsDateDisplay" class="text-xs text-rose-200 font-medium">May 24, 2026</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-extrabold mt-1 tracking-tight">UPSC Prelims & Mains Task Engine</h2>
+            <p class="text-xs sm:text-sm text-rose-100/80 mt-1 max-w-xl">
+              Track daily study habits, create custom Prelims sprint milestones, test series targets, CSAT drills, and assign deadlines with memos.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-2xl p-2.5 border border-white/10 shrink-0">
+            <div class="text-center px-2 border-r border-white/15">
+              <span class="text-[9px] uppercase font-bold text-rose-200 block">Prelims</span>
+              <span id="prelimsDaysCount" class="text-xl sm:text-2xl font-black text-white">--</span>
+            </div>
+            <div class="text-center px-2">
+              <span class="text-[9px] uppercase font-bold text-indigo-200 block">Maths Optional</span>
+              <span id="optionalDaysCountV4" class="text-xl sm:text-2xl font-black text-white">--</span>
+            </div>
+            <div class="flex flex-col gap-1 pl-1">
+              <button id="btnEditPrelimsDate" class="p-1 rounded-lg bg-white/15 hover:bg-white/25 text-white text-[10px] font-semibold transition" title="Edit Prelims Date">
+                Prelims ✎
+              </button>
+              <button id="btnEditOptionalDateV4" class="p-1 rounded-lg bg-white/15 hover:bg-white/25 text-white text-[10px] font-semibold transition" title="Edit Optional Date">
+                Optional ✎
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checklist Sub-Tabs: Daily Habits vs Custom Tasks / Prelims Sprint -->
+      <div class="flex items-center justify-between gap-2 bg-white dark:bg-slate-900 p-2 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="flex items-center gap-1">
+          <button id="subtabDailyHabits" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition active:scale-95 bg-brand-600 text-white shadow-xs">Daily Habits Checklist</button>
+          <button id="subtabCustomTasks" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition active:scale-95 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">Prelims Sprint & Custom Tasks</button>
+        </div>
+        <button id="btnOpenNewTaskModal" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold flex items-center gap-1 shadow-sm active:scale-95 transition">
+          <span>+ New Task</span>
+        </button>
+      </div>
+
+      <!-- SECTION A: DAILY HABITS CHECKLIST -->
+      <div id="containerDailyHabits" class="space-y-3 block">
+        <!-- Quick Habit Add Bar -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-center gap-2">
+          <input type="text" id="newChecklistInput" placeholder="Add a habit task e.g. 'Solve 2018 Calculus 20-marker PYQ'..." class="w-full sm:flex-1 text-xs px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+          <select id="newChecklistCategory" class="w-full sm:w-auto text-xs px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+            <option value="Maths Optional">Maths Optional</option>
+            <option value="GS Mains">GS Mains</option>
+            <option value="Prelims GS">Prelims GS</option>
+            <option value="CSAT">CSAT</option>
+            <option value="Current Affairs">Current Affairs</option>
+            <option value="Revision">Revision</option>
+          </select>
+          <button id="btnAddChecklistTask" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs transition active:scale-95 shadow-sm whitespace-nowrap">
+            + Add Task
+          </button>
+        </div>
+
+        <!-- Daily Habits Card -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-sm text-slate-800 dark:text-slate-200">Daily Core Habits & Progress</h3>
+              <span id="checklistTodayRatio" class="text-xs font-bold text-brand-600 dark:text-brand-400">0/6 Done</span>
+              <div class="w-16 bg-slate-200 dark:bg-slate-700 rounded-full h-1.5 overflow-hidden hidden sm:block">
+                <div id="checklistTodayBar" class="bg-emerald-500 h-1.5 rounded-full" style="width: 0%"></div>
+              </div>
+              <span id="checklistRemainingBadge" class="text-[11px] px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 font-semibold">6 Remaining</span>
+            </div>
+            <button id="btnResetDailyChecklist" class="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 font-medium transition">
+              Reset for New Day
+            </button>
+          </div>
+
+          <div id="checklistItemsContainer" class="space-y-2.5">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION B: CUSTOM TASK MAKER & PRELIMS SPRINT -->
+      <div id="containerCustomTasks" class="space-y-3 hidden">
+        <!-- Filter Controls -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white dark:bg-slate-900 p-3 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm text-xs">
+          <div class="flex items-center gap-1 overflow-x-auto pb-1 sm:pb-0">
+            <button id="filterTaskCatAll" class="px-2.5 py-1 rounded-lg font-semibold bg-brand-600 text-white shrink-0">All Tasks</button>
+            <button id="filterTaskCatPrelims" class="px-2.5 py-1 rounded-lg font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0">Prelims GS</button>
+            <button id="filterTaskCatCSAT" class="px-2.5 py-1 rounded-lg font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0">CSAT</button>
+            <button id="filterTaskCatMocks" class="px-2.5 py-1 rounded-lg font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0">Mocks</button>
+            <button id="filterTaskCatMains" class="px-2.5 py-1 rounded-lg font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0">Mains / Maths</button>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <select id="filterTaskStatus" class="px-2.5 py-1 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+              <option value="all">All Statuses</option>
+              <option value="pending">Pending</option>
+              <option value="in_progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+            <select id="filterTaskPriority" class="px-2.5 py-1 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+              <option value="all">All Priorities</option>
+              <option value="high">High Priority</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Custom Tasks Container -->
+        <div id="customTasksListContainer" class="space-y-3">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 5: ANALYTICS & GOOGLE DRIVE CLOUD SYNC -->
+    <section id="viewAnalytics" class="space-y-4 hidden">
+      <!-- Title -->
+      <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-5 shadow-lg">
+        <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">Analytics & Cloud Sync Vault</h2>
+        <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl">
+          Visual radar of your syllabus coverage and seamless Google Drive cross-device backup synchronization.
+        </p>
+      </div>
+
+      <!-- Google Drive Sync Card -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-emerald-600">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7.71 3.5L1.15 15l3.43 6l6.55-11.5L7.71 3.5zm1.72 1.5l5.14 9h7.43l-5.14-9H9.43zm-3.71 12l2.28 4h14l-2.28-4H5.72z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-sm text-slate-800 dark:text-slate-100">Google Drive Cross-Device Sync</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Keep your Maths & GS prep progress synchronized between your Phone, Tablet, and PC</p>
+            </div>
+          </div>
+          <span id="gdriveStatusBadge" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+            Local Storage Active
+          </span>
+        </div>
+
+        <!-- Sync Actions Bar -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-2">
+          <!-- 1-Tap Save to Google Drive (Zero Setup) -->
+          <button id="btnSaveDirectToDrive" class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold transition active:scale-95 shadow-sm col-span-1 sm:col-span-2">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.71 3.5L1.15 15l3.43 6l6.55-11.5L7.71 3.5zm1.72 1.5l5.14 9h7.43l-5.14-9H9.43zm-3.71 12l2.28 4h14l-2.28-4H5.72z"/>
+            </svg>
+            <span>🚀 1-Tap Save to Google Drive (Zero Setup)</span>
+          </button>
+
+          <!-- Restore from Google Drive -->
+          <button id="btnTriggerImportJSON" class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold transition active:scale-95">
+            <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+            </svg>
+            <span>📂 Restore from Drive</span>
+          </button>
+          <input type="file" id="jsonFileInput" accept=".json" class="hidden">
+
+          <!-- Copy Sync String -->
+          <button id="btnCopySyncPayload" class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold transition active:scale-95">
+            <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
+            </svg>
+            <span>⚡ Quick Device Transfer</span>
+          </button>
+        </div>
+
+        <!-- Explanatory Banner & Status -->
+        <div class="text-xs bg-emerald-50/70 dark:bg-emerald-950/20 p-3.5 rounded-2xl border border-emerald-200 dark:border-emerald-900/50 text-emerald-900 dark:text-emerald-200 space-y-1.5">
+          <div class="flex items-start gap-2.5">
+            <span class="text-base shrink-0">💡</span>
+            <div>
+              <p class="font-bold text-[11px] leading-tight">How Direct Google Drive Connection Works (Zero Setup):</p>
+              <p class="text-[11px] text-emerald-800/80 dark:text-emerald-300/80 mt-0.5 leading-relaxed">
+                On your phone, tapping <strong>"1-Tap Save to Google Drive"</strong> uses your device's native system share. Simply select <strong>"Drive / Save to Drive"</strong> to upload directly to your personal Google account. When switching to another phone, tablet, or PC, tap <strong>"Restore from Drive"</strong> and select your saved backup!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sync Settings & Details Accordion -->
+        <div class="text-xs bg-slate-50 dark:bg-slate-950 p-3 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 space-y-2">
+          <div class="flex items-center justify-between">
+            <span>Last Sync Time: <strong id="lastSyncTimeText" class="text-slate-800 dark:text-slate-200">Just now (Local)</strong></span>
+            <span>Local Storage: <strong id="storageSizeText" class="text-slate-800 dark:text-slate-200">0 KB</strong></span>
+          </div>
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-200 dark:border-slate-800">
+            <button id="btnExportJSON" class="text-brand-600 dark:text-brand-400 hover:underline font-semibold flex items-center gap-1 text-[11px]">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Download Raw File (.json)</span>
+            </button>
+            <button id="btnToggleGdriveSettings" class="text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 font-medium flex items-center gap-1 text-[11px]">
+              <span>Advanced: Custom Google Cloud OAuth Client ID</span>
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+          </div>
+          <div id="gdriveSettingsBox" class="hidden pt-2 space-y-2 border-t border-slate-200 dark:border-slate-800">
+            <p class="text-[11px] text-slate-500">
+              Enter your <strong>Google Cloud OAuth Client ID</strong> (ends with <code>.apps.googleusercontent.com</code>).
+              <span class="block text-amber-600 dark:text-amber-400 font-semibold mt-1">⚠️ Do NOT enter the Client Secret (starts with GOCSPX-) or auth code. Only copy the Client ID.</span>
+            </p>
+            <div class="flex gap-2">
+              <input type="text" id="gdriveClientIdInput" placeholder="e.g. 1071477755835-xxx.apps.googleusercontent.com" class="flex-1 text-xs px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-100 font-mono">
+              <button id="btnSaveClientId" class="px-3 py-1.5 rounded-xl bg-brand-600 text-white font-semibold text-xs active:scale-95">Save</button>
+            </div>
+            <div id="gdriveClientIdStatus" class="text-[11px] font-medium text-slate-500"></div>
+            <div class="pt-1 flex flex-wrap gap-2">
+              <button id="btnConnectGoogleDrive" class="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold flex items-center justify-center gap-2 active:scale-95 transition">
+                <svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M7.71 3.5L1.15 15l3.43 6l6.55-11.5L7.71 3.5zm1.72 1.5l5.14 9h7.43l-5.14-9H9.43zm-3.71 12l2.28 4h14l-2.28-4H5.72z"/></svg>
+                <span id="gdriveBtnLabel">⬆️ Push / Save to Drive</span>
+              </button>
+              <button id="btnRestoreFromCloudDrive" class="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold flex items-center justify-center gap-2 active:scale-95 transition shadow-sm">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                <span>⬇️ Pull / Load from Drive</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <!-- Maths Optional Chart -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <h3 class="font-bold text-sm text-slate-800 dark:text-slate-200 mb-3">Maths Optional: Stage-Wise Completion</h3>
+          <div class="relative h-64">
+            <canvas id="mathsStageChart"></canvas>
+          </div>
+        </div>
+
+        <!-- GS 1-4 Radar Chart -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <h3 class="font-bold text-sm text-slate-800 dark:text-slate-200 mb-3">GS 1 to 4 Parameter Breakdown</h3>
+          <div class="relative h-64">
+            <canvas id="gsRadarChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Danger Zone / Factory Reset -->
+      <div class="bg-red-50/50 dark:bg-red-950/20 rounded-3xl p-4 border border-red-200 dark:border-red-900/50 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div>
+          <h4 class="font-bold text-xs text-red-700 dark:text-red-400">Reset All Preparation Data</h4>
+          <p class="text-[11px] text-red-600/80 dark:text-red-400/70">Wipes all progress, test scores, checklist items, and resets to default syllabus.</p>
+        </div>
+        <button id="btnResetData" class="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-semibold active:scale-95 transition whitespace-nowrap">
+          Reset All Data
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ANDROID BOTTOM NAVIGATION BAR (Material 3 Bar) -->
+  <nav class="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 fixed bottom-0 left-0 right-0 z-40 safe-bottom">
+    <div class="max-w-md mx-auto px-4 h-16 flex items-center justify-around">
+      <!-- 1. Maths Optional -->
+      <button id="navBtnMaths" class="flex flex-col items-center justify-center w-14 h-full text-brand-600 dark:text-brand-400 transition-all active:scale-90">
+        <div class="p-1 rounded-full bg-brand-100 dark:bg-brand-950/60">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <span class="text-[10px] font-bold mt-0.5">Maths</span>
+      </button>
+
+      <!-- 2. GS Tracker -->
+      <button id="navBtnGS" class="flex flex-col items-center justify-center w-14 h-full text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-all active:scale-90">
+        <div class="p-1 rounded-full">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <span class="text-[10px] font-medium mt-0.5">GS 1-4</span>
+      </button>
+
+      <!-- 3. Keywords -->
+      <button id="navBtnKeywords" class="flex flex-col items-center justify-center w-14 h-full text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-all active:scale-90">
+        <div class="p-1 rounded-full">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+          </svg>
+        </div>
+        <span class="text-[10px] font-medium mt-0.5">Keywords</span>
+      </button>
+
+      <!-- 4. Checklist & Prelims -->
+      <button id="navBtnChecklist" class="flex flex-col items-center justify-center w-14 h-full text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-all active:scale-90">
+        <div class="p-1 rounded-full">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+          </svg>
+        </div>
+        <span class="text-[10px] font-medium mt-0.5">Checklist</span>
+      </button>
+
+      <!-- 5. Analytics & Sync -->
+      <button id="navBtnAnalytics" class="flex flex-col items-center justify-center w-14 h-full text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-all active:scale-90">
+        <div class="p-1 rounded-full">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/>
+          </svg>
+        </div>
+        <span class="text-[10px] font-medium mt-0.5">Sync/Stats</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MODAL 1: CHECKPOINT DETAIL (STATUS, TARGET DATE & MEMO) -->
+  <div id="checkpointModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 hidden transition-opacity">
+    <div class="bg-white dark:bg-slate-900 w-full sm:max-w-lg rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <span id="cpModalTopicBadge" class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300">Topic</span>
+          <h3 id="cpModalTitle" class="text-base font-bold text-slate-900 dark:text-white mt-1">Checkpoint Configuration</h3>
+        </div>
+        <button id="btnCloseCpModal" class="p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 bg-slate-100 dark:bg-slate-800">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- 3-Way Status Selector -->
+      <div class="space-y-1.5">
+        <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">Progress Status:</label>
+        <div class="grid grid-cols-3 gap-2">
+          <button id="cpBtnStatusPending" class="cpStatusBtn py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition active:scale-95 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300">
+            <span>⏳ Pending</span>
+          </button>
+          <button id="cpBtnStatusInProgress" class="cpStatusBtn py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition active:scale-95 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300">
+            <span>🔄 In Progress</span>
+          </button>
+          <button id="cpBtnStatusCompleted" class="cpStatusBtn py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition active:scale-95 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300">
+            <span>✅ Completed</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Target Date -->
+      <div class="space-y-1.5">
+        <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">Target Date / Deadline:</label>
+        <div class="relative">
+          <input type="date" id="cpModalTargetDate" class="w-full text-xs p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+        </div>
+      </div>
+
+      <!-- Memo & Strategy -->
+      <div class="space-y-1.5">
+        <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">Memo / Personal Study Notes:</label>
+        <textarea id="cpModalMemo" rows="3" placeholder="Write specific memo for this checkpoint e.g. 'Completed theorems 1-4, need to re-verify Cayley Hamilton proofs and question 3b of 2021 PYQ'..." class="w-full text-xs p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+      </div>
+
+      <!-- Quick Preset Memos -->
+      <div class="space-y-1">
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Quick Preset Memos:</span>
+        <div class="flex flex-wrap gap-1">
+          <button class="btnQuickMemo px-2 py-0.5 rounded-lg text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200" data-memo="Core theorem proofs verified">+ Proofs Verified</button>
+          <button class="btnQuickMemo px-2 py-0.5 rounded-lg text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200" data-memo="Re-attempt tricky PYQs (2018-2023)">+ Re-solve PYQs</button>
+          <button class="btnQuickMemo px-2 py-0.5 rounded-lg text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200" data-memo="Speed test drill: 5 questions in 40 mins">+ Speed Drill</button>
+          <button class="btnQuickMemo px-2 py-0.5 rounded-lg text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200" data-memo="Short formula summary sheet ready">+ Formula Sheet Ready</button>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+        <button id="btnCancelCpModal" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs transition active:scale-95">Cancel</button>
+        <button id="btnSaveCpModal" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs transition active:scale-95 shadow-sm">Save Checkpoint</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: TOPIC DETAILS, DRIVE LINK & FILE UPLOAD -->
+  <div id="topicDetailModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 hidden transition-opacity">
+    <div class="bg-white dark:bg-slate-900 w-full sm:max-w-2xl rounded-t-3xl sm:rounded-3xl max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 dark:border-slate-800">
+      <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+        <div>
+          <span id="modalTopicBadge" class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300">Paper 1</span>
+          <h3 id="modalTopicTitle" class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-1">Topic Details</h3>
+        </div>
+        <button id="btnCloseModal" class="p-2 rounded-xl text-slate-500 hover:text-slate-800 dark:hover:text-white bg-slate-100 dark:bg-slate-800 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="p-5 overflow-y-auto space-y-4 text-xs">
+        <!-- Subtopics List -->
+        <div>
+          <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-1">Key Syllabus Sub-Topics & Theorems:</h4>
+          <p id="modalSubtopics" class="text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 leading-relaxed"></p>
+        </div>
+
+        <!-- FILE UPLOAD SECTION (FOR SHORT NOTES / PDFS) -->
+        <div class="p-4 rounded-2xl bg-brand-50/50 dark:bg-brand-950/20 border border-brand-200 dark:border-brand-900/50 space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <h4 class="font-bold text-brand-900 dark:text-brand-200 flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+                Short Notes Document & PDF Storage
+              </h4>
+              <p class="text-[11px] text-brand-700/80 dark:text-brand-300/80">Upload your handwritten or typed short notes (PDF, Image, Docs) for offline offline access.</p>
+            </div>
+            <div>
+              <input type="file" id="modalFileInput" accept=".pdf,image/*,.doc,.docx,.txt" multiple class="hidden">
+              <button id="btnTriggerUpload" class="px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs flex items-center gap-1 shadow-sm active:scale-95 transition">
+                <span>+ Upload Notes</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Uploaded Files List -->
+          <div id="modalUploadedFilesContainer" class="space-y-1.5">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Notes Google Drive Link -->
+        <div class="space-y-1">
+          <label class="font-bold text-slate-800 dark:text-slate-200">External Google Drive Link (Alternative):</label>
+          <input type="url" id="modalDriveLinkInput" placeholder="https://drive.google.com/..." class="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100">
+        </div>
+
+        <!-- Sectional & FLT Marks -->
+        <div class="grid grid-cols-2 gap-3">
+          <div class="space-y-1">
+            <label class="font-bold text-slate-800 dark:text-slate-200">Sectional Test Score (/250):</label>
+            <input type="number" id="modalSecScoreInput" placeholder="e.g. 145" class="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100">
+          </div>
+          <div class="space-y-1">
+            <label class="font-bold text-slate-800 dark:text-slate-200">Full Length Test Score (/250):</label>
+            <input type="number" id="modalFltScoreInput" placeholder="e.g. 162" class="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100">
+          </div>
+        </div>
+
+        <!-- Personal Notes / Theme questions summary -->
+        <div class="space-y-1">
+          <label class="font-bold text-slate-800 dark:text-slate-200">Theme-Based Questions & Formula Notes:</label>
+          <textarea id="modalPersonalNotesInput" rows="3" placeholder="Key problem types e.g. 'Type 1: Orthogonal trajectories in polar coordinates; Type 2: Variation of Parameters when f(x)=tan x'..." class="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100"></textarea>
+        </div>
+      </div>
+
+      <div class="p-4 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-2">
+        <button id="btnCancelModal" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs active:scale-95 transition">Cancel</button>
+        <button id="btnSaveTopicModal" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs active:scale-95 transition shadow-sm">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: PRELIMS / CUSTOM TASK MAKER -->
+  <div id="customTaskModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-900 w-full max-w-lg rounded-3xl p-5 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+        <h3 id="customTaskModalTitle" class="font-bold text-sm text-slate-900 dark:text-white">Create Custom / Prelims Task</h3>
+        <button id="btnCloseCustomTaskModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="space-y-2">
+        <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">Task Title:</label>
+        <input type="text" id="taskModalTitleInput" placeholder="e.g. 'Solve 2023 CSAT Reading Comprehension PYQs' or 'Modern History Spectrum Rev'" class="w-full text-xs p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">Category / Module:</label>
+          <select id="taskModalCategorySelect" class="w-full text-xs p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+            <option value="Prelims GS">Prelims GS (History/Polity/Geo)</option>
+            <option value="CSAT">CSAT (Quant/Reasoning/English)</option>
+            <option value="Prelims Mocks">Prelims Mock Test Series</option>
+            <option value="Maths Optional">Maths Optional Sprint</option>
+            <option value="GS Mains">GS Mains Answer Writing</option>
+            <option value="Current Affairs">Current Affairs Compilation</option>
+            <option value="Revision Block">Revision Block</option>
+          </select>
+        </div>
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">Priority Level:</label>
+          <select id="taskModalPrioritySelect" class="w-full text-xs p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+            <option value="High">🔴 High (Crucial)</option>
+            <option value="Medium" selected>🟡 Medium</option>
+            <option value="Low">🟢 Low</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">Target Date / Deadline:</label>
+          <input type="date" id="taskModalDateInput" class="w-full text-xs p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100">
+        </div>
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">Target Metric / Goal:</label>
+          <input type="text" id="taskModalGoalInput" placeholder="e.g. '50 MCQs' or '>115 Marks'" class="w-full text-xs p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100">
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">Strategy Memo & Notes:</label>
+        <textarea id="taskModalMemoInput" rows="2" placeholder="Write specific memo e.g. 'Focus on accuracy in reading comprehension, negative marking threshold 1/3'..." class="w-full text-xs p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100"></textarea>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+        <button id="btnCancelCustomTaskModal" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-semibold">Cancel</button>
+        <button id="btnSaveCustomTaskModal" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-sm">Save Task</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: PRELIMS EXAM DATE CHANGER -->
+  <div id="prelimsDateModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-900 w-full max-w-sm rounded-3xl p-5 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+        <h3 class="font-bold text-sm text-slate-900 dark:text-white">Set Target Prelims Exam Date</h3>
+        <button id="btnClosePrelimsDateModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="space-y-2">
+        <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">Exam Date:</label>
+        <input type="date" id="prelimsDateInput" class="w-full text-xs p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100">
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button id="btnSavePrelimsDate" class="px-4 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold shadow-sm">Update Countdown</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- MODAL: OPTIONAL EXAM DATE CHANGER -->
+  <div id="optionalDateModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-900 w-full max-w-sm rounded-3xl p-5 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+        <h3 class="font-bold text-sm text-slate-900 dark:text-white">Set Target Maths Optional Exam Date</h3>
+        <button id="btnCloseOptionalDateModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <p class="text-xs text-slate-500 dark:text-slate-400">
+        UPSC Mains Optional Paper 1 & 2 is usually held on the second weekend of Mains (typically mid-to-late September).
+      </p>
+      <div class="space-y-2">
+        <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">Optional Exam Date:</label>
+        <input type="date" id="optionalDateInput" class="w-full text-xs p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100">
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button id="btnSaveOptionalDate" class="px-4 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-sm">Update Countdown</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 5: FILE VIEWER / PREVIEW -->
+  <div id="filePreviewModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 hidden">
+    <div class="bg-white dark:bg-slate-900 w-full max-w-3xl h-[85vh] rounded-3xl flex flex-col shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+      <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2 truncate">
+          <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate" id="filePreviewTitle">Short Notes Document</span>
+          <span id="filePreviewSize" class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">0 KB</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <a id="btnDownloadPreviewFile" href="#" download class="px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold">Download</a>
+          <button id="btnCloseFilePreview" class="p-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="filePreviewBody" class="flex-1 bg-slate-100 dark:bg-slate-950 p-2 overflow-auto flex items-center justify-center">
+        <!-- Rendered dynamically (iframe/img/text) -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 6: ADD CUSTOM KEYWORD -->
+  <div id="customKeywordModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-900 w-full max-w-md rounded-3xl p-5 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+        <h3 class="font-bold text-sm text-slate-900 dark:text-white">Add Custom Keyword / Theorem</h3>
+        <button id="btnCloseKwModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="space-y-2">
+        <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">Keyword / Doctrine / Theorem Name:</label>
+        <input type="text" id="modalCustomKwText" placeholder="e.g. Asymmetric Federalism or Cayley-Hamilton" class="w-full text-xs p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+      </div>
+      <div class="space-y-2">
+        <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">Select Subject Category:</label>
+        <select id="modalCustomKwSubject" class="w-full text-xs p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+          <option value="GS1">GS 1 (History, Geo, Society)</option>
+          <option value="GS2" selected>GS 2 (Polity, Governance, IR)</option>
+          <option value="GS3">GS 3 (Economy, Environment, S&T)</option>
+          <option value="GS4">GS 4 (Ethics, Integrity, Case)</option>
+          <option value="Maths">Maths Optional (Paper 1 & 2)</option>
+          <option value="Current Affairs">Current Affairs</option>
+        </select>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button id="btnCancelKwModal" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold">Cancel</button>
+        <button id="btnSubmitCustomKw" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-sm">Save Keyword</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 7: QUICK DEVICE TRANSFER PAYLOAD -->
+  <div id="deviceTransferModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-900 w-full max-w-lg rounded-3xl p-5 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-3">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+        <h3 class="font-bold text-sm text-slate-900 dark:text-white">Quick Cross-Device Data Transfer</h3>
+        <button id="btnCloseTransferModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <p class="text-xs text-slate-500 dark:text-slate-400">
+        Copy this payload string to transfer your prep data to your Android phone/tablet, or paste a payload from another device to sync your progress!
+      </p>
+      <textarea id="deviceTransferPayloadArea" rows="6" class="w-full text-[11px] font-mono p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200"></textarea>
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+        <button id="btnCopyTransferPayload" class="px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow-sm">
+          Copy to Clipboard
+        </button>
+        <div class="flex gap-2">
+          <button id="btnApplyTransferPayload" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-sm">
+            Import & Sync
+          </button>
+          <button id="btnCloseTransferModalBtn" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-semibold">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: GOOGLE DRIVE DIRECT SAVE HELPER (DESKTOP & WEB FALLBACK) -->
+  <div id="driveDirectModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-900 w-full max-w-md rounded-3xl p-5 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 flex items-center justify-center">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M7.71 3.5L1.15 15l3.43 6l6.55-11.5L7.71 3.5zm1.72 1.5l5.14 9h7.43l-5.14-9H9.43zm-3.71 12l2.28 4h14l-2.28-4H5.72z"/></svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-sm text-slate-900 dark:text-white">Save Directly to Google Drive</h3>
+            <p class="text-[11px] text-slate-500">1-Tap Backup Ready</p>
+          </div>
+        </div>
+        <button id="btnCloseDriveDirectModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
+        <p class="leading-relaxed">
+          Your prep progress file <strong id="driveDirectModalFileName" class="text-slate-800 dark:text-slate-100 font-mono">upsc_maths_prep_backup.json</strong> has been generated!
+        </p>
+        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-2">
+          <div class="flex items-start gap-2">
+            <span class="font-bold text-emerald-600 shrink-0">1.</span>
+            <span>File is downloaded to your device storage.</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="font-bold text-emerald-600 shrink-0">2.</span>
+            <span>Tap <strong>"Open Google Drive"</strong> below to jump straight to your Drive and drop the file into your UPSC folder.</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="font-bold text-emerald-600 shrink-0">3.</span>
+            <span>To restore on any mobile or PC, tap <strong>"Restore from Drive"</strong> and select your file!</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-2 pt-2">
+        <button id="btnOpenDriveWeb" class="flex-1 py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M7.71 3.5L1.15 15l3.43 6l6.55-11.5L7.71 3.5zm1.72 1.5l5.14 9h7.43l-5.14-9H9.43zm-3.71 12l2.28 4h14l-2.28-4H5.72z"/></svg>
+          <span>Open Google Drive (Web)</span>
+        </button>
+        <button id="btnDownloadBackupModal" class="py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold text-xs active:scale-95 transition">
+          Download File Again
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="fixed top-20 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- JAVASCRIPT APPLICATION LOGIC -->
+  <script>
+    // ==========================================
+    // SYLLABUS TOPICS CONFIGURATION
+    // ==========================================
+    const MATHS_CHECKPOINTS_DEF = [
+      { key: 'sn1', label: 'Short Notes 1', sublabel: 'Theory & Proofs' },
+      { key: 'sn2', label: 'Short Notes 2', sublabel: 'Theme Questions' },
+      { key: 'notes_complete', label: 'Notes Complete', sublabel: 'Comprehensive' },
+      { key: 'pyq', label: 'PYQ Mastery', sublabel: '2013 - 2024' },
+      { key: 'sec_test', label: 'Sectional Test', sublabel: 'Marks /250' },
+      { key: 'flt', label: 'Full Length Test', sublabel: 'FLT Simulation' },
+      { key: 'rev1', label: 'Revision 1', sublabel: 'Core Formulae' },
+      { key: 'rev2', label: 'Revision 2', sublabel: 'Speed Drills' }
+    ];
+
+    const INITIAL_MATHS_TOPICS = [
+      {
+        id: "m_p1_la", paper: 1, title: "Linear Algebra",
+        subtopics: "Vector spaces, subspaces, linear dependence/independence, bases, dimension, linear transformations, rank and nullity, matrix representation, Cayley-Hamilton theorem, eigenvalues & eigenvectors, characteristic polynomial, symmetric/skew-symmetric/orthogonal/hermitian matrices, reduction to canonical forms, quadratic forms.",
+        drive_link: "", sec_score: "", flt_score: "", notes: ""
+      },
+      {
+        id: "m_p1_calc", paper: 1, title: "Calculus",
+        subtopics: "Real numbers, functions, limits, continuity, differentiability, mean value theorems, Taylor's theorem, indeterminate forms, maxima & minima, asymptotes, curve tracing, functions of several variables, partial derivatives, Lagrange multipliers, Riemann integral, improper integrals, multiple integrals (double & triple), beta & gamma functions, Dirichlet's integrals, surface areas & volumes.",
+        drive_link: "", sec_score: "", flt_score: "", notes: ""
+      },
+      {
+        id: "m_p1_geom", paper: 1, title: "Analytic Geometry (3D)",
+        subtopics: "Cartesian and polar coordinates in 3D, second degree equations in three variables, reduction to canonical forms, straight lines, shortest distance between skew lines, planes, spheres, cones, cylinders, paraboloids, ellipsoids, hyperboloids of one & two sheets, generating lines, tangent planes and normals.",
+        drive_link: "", sec_score: "", flt_score: "", notes: ""
+      },
+      {
+        id: "m_p1_ode", paper: 1, title: "Ordinary Differential Equations (ODE)",
+        subtopics: "Formulation of differential equations, equations of 1st order and 1st degree, integrating factor, orthogonal trajectories, 1st order higher degree equations, Clairaut's equation, singular solutions, higher order linear equations with constant coefficients, Euler-Cauchy equation, method of variation of parameters, Laplace transform and applications to ODE.",
+        drive_link: "", sec_score: "", flt_score: "", notes: ""
+      },
+      {
+        id: "m_p1_ds", paper: 1, title: "Dynamics and Statics",
+        subtopics: "Dynamics: Rectilinear motion, simple harmonic motion (SHM), motion in a plane, projectiles, constrained motion, work, power & energy, Kepler's laws, central orbits under inverse square forces. Statics: Equilibrium of a system of particles, work and potential energy, principle of virtual work, common catenary, forces in three dimensions, equilibrium of strings.",
+        drive_link: "", sec_score: "", flt_score: "", notes: ""
+      },
+      {
+        id: "m_p1_vec", paper: 1, title: "Vector Analysis",
+        subtopics: "Scalar and vector fields, differentiation of vector fields of a scalar variable, space curves, curvature and torsion, Serret-Frenet formulae, directional derivatives, gradient, divergence, curl, Gauss divergence theorem, Green's theorem, Stokes' theorem and physical applications.",
+        drive_link: "", sec_score: "", flt_score: "", notes: ""
+      },
+      {
+        id: "m_p2_alg", paper: 2, title: "Modern Algebra (Abstract Algebra)",
+        subtopics: "Groups, subgroups, cyclic groups, cosets, Lagrange's theorem, normal subgroups, quotient groups, homomorphism of groups, fundamental isomorphism theorems, permutation groups, Cayley's theorem. Rings, subrings, ideals, prime & maximal ideals, quotient rings, integral domains, Euclidean domains, PID, UFD, polynomial rings, fields, finite fields.",
+        drive_link: "", sec_score: "", flt_score: "", notes: ""
+      },
+      {
+        id: "m_p2_ra", paper: 2, title: "Real Analysis",
+        subtopics: "Riemann integral, improper integrals, sequences and series of functions, uniform convergence, Cauchy criterion for uniform convergence, Weierstrass M-test, term by term differentiation and integration, power series, Taylor series, metric spaces, compactness, connectedness.",
+        drive_link: "", sec_score: "", flt_score: "", notes: ""
+      },
+      {
+        id: "m_p2_ca", paper: 2, title: "Complex Analysis",
+        subtopics: "Analytic functions, Cauchy-Riemann equations, Cauchy's theorem, Cauchy's integral formula, power series representation of an analytic function, Taylor's series, Laurent's series, singularities, Cauchy's residue theorem, contour integrals, conformal mapping, bilinear transformations.",
+        drive_link: "", sec_score: "", flt_score: "", notes: ""
+      },
+      {
+        id: "m_p2_lp", paper: 2, title: "Linear Programming (LPP)",
+        subtopics: "Linear programming problems, basic feasible solutions, simplex method, Big-M & two-phase method, duality theory, dual simplex method, revised simplex method, sensitivity analysis, transportation problems, assignment problems.",
+        drive_link: "", sec_score: "", flt_score: "", notes: ""
+      },
+      {
+        id: "m_p2_pde", paper: 2, title: "Partial Differential Equations (PDE)",
+        subtopics: "Formulation of PDE, order and degree, Pfaffian differential equations, linear PDE of 1st order, Lagrange's method, non-linear PDE of 1st order, Charpit's method, linear PDEs with constant coefficients of 2nd and higher order, wave equation, heat equation, Laplace equation.",
+        drive_link: "", sec_score: "", flt_score: "", notes: ""
+      },
+      {
+        id: "m_p2_na", paper: 2, title: "Numerical Analysis & Computer Programming",
+        subtopics: "Numerical Analysis: Transcendental & polynomial equations (bisection, regula-falsi, Newton-Raphson), linear systems (Gaussian elimination, Gauss-Jordan, Gauss-Seidel), interpolation (Lagrange, Newton), numerical quadrature, ODE solutions (Euler, Runge-Kutta). Programming: Algorithms, flowcharts, floating point numbers.",
+        drive_link: "", sec_score: "", flt_score: "", notes: ""
+      },
+      {
+        id: "m_p2_mfd", paper: 2, title: "Mechanics and Fluid Dynamics",
+        subtopics: "Mechanics: Generalized coordinates, d'Alembert's principle and Lagrange's equations, Hamilton's equations, moments of inertia. Fluid Dynamics: Equation of continuity, Euler's equations of motion, stream lines, potential flow, complex potential, vortex motion, Navier-Stokes equations.",
+        drive_link: "", sec_score: "", flt_score: "", notes: ""
+      }
+    ];
+
+    const INITIAL_GS_MODULES = [
+      { id: "gs1_art", paper: 1, title: "Indian Heritage & Art & Culture", subtopics: "Architecture, Sculpture, Paintings, Performing Arts, Literature from ancient to modern times.", keywords: ["Gandhara Art", "Nagara Style", "Bhakti Movement", "Temple Architecture", "Classical Dances"] },
+      { id: "gs1_hist", paper: 1, title: "Modern Indian History & Freedom Struggle", subtopics: "Mid-18th century to present, significant events, personalities, stages of freedom struggle.", keywords: ["Subsidary Alliance", "1857 Revolt", "Drain of Wealth", "Non-Cooperation", "Civil Disobedience", "Quit India"] },
+      { id: "gs1_world", paper: 1, title: "Post-Independence Consolidation & World History", subtopics: "Integration of princely states, linguistic reorganization; Industrial revolution, world wars, decolonization.", keywords: ["States Reorganization Act", "Cold War", "Decolonization", "NAM"] },
+      { id: "gs1_soc", paper: 1, title: "Indian Society & Social Issues", subtopics: "Salient features, diversity, role of women, population, poverty, urbanization, globalization, communalism, regionalism.", keywords: ["Patriarchy", "Demographic Dividend", "Sanskritization", "Communalism", "Glocalization"] },
+      { id: "gs1_geo", paper: 1, title: "Physical & Human Geography", subtopics: "Salient features of world physical geography, distribution of resources, industrial location factors, earthquakes, cyclones.", keywords: ["Plate Tectonics", "El Nino / La Nina", "Indian Ocean Dipole", "Tropical Cyclones", "Urban Heat Island"] },
+      { id: "gs2_polity", paper: 2, title: "Indian Constitution & Polity", subtopics: "Historical underpinnings, evolution, features, amendments, basic structure doctrine, comparative constitutions.", keywords: ["Basic Structure Doctrine", "Article 21", "Article 356", "Judicial Review", "Asymmetric Federalism", "Kesavananda Bharati"] },
+      { id: "gs2_gov", paper: 2, title: "Governance & Institutional Framework", subtopics: "Separation of powers, dispute redressal, parliament & state legislatures, executive & judiciary, RPA 1951, statutory bodies.", keywords: ["Subsidiarity", "RPA 1951", "Ordinance Making Power", "E-Governance", "Citizen Charter", "CAG"] },
+      { id: "gs2_soc_jus", paper: 2, title: "Social Justice & Welfare Policies", subtopics: "Welfare schemes for vulnerable sections, mechanisms, laws; Health, education, poverty & hunger.", keywords: ["Amartya Sen Capability Approach", "Out-of-Pocket Expenditure", "Stunting & Wasting", "National Education Policy"] },
+      { id: "gs2_ir", paper: 2, title: "International Relations", subtopics: "India and neighbourhood, bilateral, regional groupings, global agreements, diaspora.", keywords: ["Neighbourhood First", "Act East Policy", "QUAD", "Strategic Autonomy", "Global South Leadership"] },
+      { id: "gs3_econ", paper: 3, title: "Indian Economy & Agriculture", subtopics: "Economic growth, budgeting, inclusive growth, cropping patterns, irrigation, MSP, food security, PDS.", keywords: ["FRBM Act", "K-shaped Recovery", "MSP Regime", "PM KISAN", "Capital Expenditure Multiplier"] },
+      { id: "gs3_st", paper: 3, title: "Science & Technology", subtopics: "Developments, everyday applications, indigenization, IT, space, robotics, nano-technology, bio-technology, IPR.", keywords: ["Generative AI", "CRISPR-Cas9", "Quantum Computing", "Gaganyaan", "Green Hydrogen Mission"] },
+      { id: "gs3_env", paper: 3, title: "Environment, Biodiversity & Climate Change", subtopics: "Conservation, pollution, EIA, COP summits, disaster management.", keywords: ["Panchamrit Targets", "Net Zero 2070", "Kunming-Montreal Framework", "Loss and Damage Fund", "Sendai Framework"] },
+      { id: "gs3_sec", paper: 3, title: "Internal Security & Disaster Management", subtopics: "Extremism linkages, external state & non-state actors, cyber security, border management.", keywords: ["Zero Tolerance to Terrorism", "Grey Zone Warfare", "Cyber Surakshit Bharat", "Smart Border Fencing", "LWE Extremism"] },
+      { id: "gs4_eth_int", paper: 4, title: "Ethics and Human Interface", subtopics: "Essence, determinants, consequences of Ethics; private and public relationships; Human Values.", keywords: ["Deontology (Kant)", "Utilitarianism (Bentham/Mill)", "Virtue Ethics (Aristotle)", "Moral Relativism"] },
+      { id: "gs4_att", paper: 4, title: "Attitude, Aptitude & Emotional Intelligence", subtopics: "Structure, moral and political attitudes, integrity, impartiality, Emotional Intelligence concepts.", keywords: ["Cognitive Dissonance", "Persuasion", "Daniel Goleman EI", "Empathy vs Sympathy", "Probity"] },
+      { id: "gs4_think", paper: 4, title: "Moral Thinkers & Philosophers", subtopics: "Indian and world philosophers (Kautilya, Gandhi, Buddha, Vivekananda, Rawls, Socrates).", keywords: ["John Rawls Veil of Ignorance", "Gandhi Seven Sins", "Nolan Principles", "Sarvodaya", "Categorical Imperative"] },
+      { id: "gs4_case", paper: 4, title: "Public Service Values, Probity & Case Studies", subtopics: "Ethical dilemmas, laws, rules, probity in governance, RTI, Citizen's Charters, Case Studies.", keywords: ["Whistleblower Protection", "Conflict of Interest", "Doctrine of Public Trust", "2nd ARC Ethics in Governance"] }
+    ];
+
+    const INITIAL_DAILY_HABITS = [
+      { id: "c1", title: "Maths Optional: Solve 15-20 Questions (PYQ / Sectional)", category: "Maths Optional", done: false },
+      { id: "c2", title: "Maths Optional: Revise 1 Formula Sheet / Theorem Proof", category: "Maths Optional", done: false },
+      { id: "c3", title: "GS Mains: Write 2 Answers with strict timer (15 mins)", category: "GS Mains", done: false },
+      { id: "c4", title: "Current Affairs: Read Editorial & extract 3 high-yield keywords", category: "Current Affairs", done: false },
+      { id: "c5", title: "GS Static Revision: 1 Core Topic Block (2 hours)", category: "Revision", done: false },
+      { id: "c6", title: "Prelims CSAT / Daily MCQ Practice Quiz (30 mins)", category: "Prelims GS", done: false }
+    ];
+
+    const INITIAL_CUSTOM_TASKS = [
+      {
+        id: "ct_1",
+        title: "Solve 2023 CSAT Reading Comprehension & Syllogism Questions",
+        category: "CSAT",
+        priority: "High",
+        target_date: "2026-11-05",
+        status: "in_progress",
+        goal: "35 Questions (Accuracy > 85%)",
+        memo: "Focus on tone identification and eliminating extreme statements."
+      },
+      {
+        id: "ct_2",
+        title: "Modern History: Spectrum Unit 3 Freedom Struggle (1885-1919)",
+        category: "Prelims GS",
+        priority: "High",
+        target_date: "2026-11-12",
+        status: "pending",
+        goal: "Revise & solve 50 sectional MCQs",
+        memo: "Pay special attention to Surat Split, Morley-Minto reforms, and Home Rule leagues."
+      },
+      {
+        id: "ct_3",
+        title: "Attempt Full Length Prelims Mock 1 (FLT) & In-Depth Analysis",
+        category: "Prelims Mocks",
+        priority: "Medium",
+        target_date: "2026-11-20",
+        status: "pending",
+        goal: "Score > 105 / 200",
+        memo: "Record all 50-50 guess errors in mistake notebook."
+      }
+    ];
+
+    // ==========================================
+    // STATE MANAGEMENT & LOCAL STORAGE
+    // ==========================================
+    let state = {
+      maths: [],
+      gs: [],
+      dailyHabits: [],
+      customTasks: [],
+      keywords: [],
+      topicFiles: {}, // topicId -> [ { id, name, size, type, dataUrl, uploadedAt } ]
+      prelimsExamDate: "2026-05-24",
+      optionalExamDate: "2026-09-20",
+      streak: 1,
+      lastStreakDate: new Date().toISOString().slice(0,10),
+      darkMode: false,
+      gdriveClientId: "",
+      gdriveAccessToken: null,
+      
+      // Active modal contexts
+      activeTopicId: null,
+      activeCheckpointKey: null,
+      activeTaskId: null,
+      activePreviewFile: null,
+      selectedCpStatus: 'pending'
+    };
+
+    function normalizeMathsTopics(topics) {
+      return topics.map(t => {
+        if (!t.checkpoints) {
+          t.checkpoints = {};
+        }
+        MATHS_CHECKPOINTS_DEF.forEach(cp => {
+          if (!t.checkpoints[cp.key]) {
+            const legacyVal = t[cp.key];
+            t.checkpoints[cp.key] = {
+              status: legacyVal === true ? 'completed' : 'pending',
+              target_date: '',
+              memo: ''
+            };
+          }
+        });
+        return t;
+      });
+    }
+
+    function normalizeGSTopics(modules) {
+      const gsKeys = ['sn', 'rev_mains', 'ca_rev', 'kw_extracted'];
+      return modules.map(m => {
+        if (!m.checkpoints) {
+          m.checkpoints = {};
+        }
+        gsKeys.forEach(k => {
+          if (!m.checkpoints[k]) {
+            const legacy = m[k];
+            m.checkpoints[k] = {
+              status: legacy === true ? 'completed' : 'pending',
+              target_date: '',
+              memo: ''
+            };
+          }
+        });
+        return m;
+      });
+    }
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem("upsc_prep_tracker_v2") || localStorage.getItem("upsc_prep_tracker_v1");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          state = Object.assign(state, parsed);
+          state.maths = normalizeMathsTopics(state.maths && state.maths.length ? state.maths : INITIAL_MATHS_TOPICS);
+          state.gs = normalizeGSTopics(state.gs && state.gs.length ? state.gs : INITIAL_GS_MODULES);
+          if (!state.dailyHabits || !state.dailyHabits.length) {
+            state.dailyHabits = (state.checklist && state.checklist.length) ? state.checklist : JSON.parse(JSON.stringify(INITIAL_DAILY_HABITS));
+          }
+          if (!state.customTasks || !state.customTasks.length) {
+            state.customTasks = JSON.parse(JSON.stringify(INITIAL_CUSTOM_TASKS));
+          }
+          if (!state.topicFiles) state.topicFiles = {};
+        } else {
+          state.maths = normalizeMathsTopics(JSON.parse(JSON.stringify(INITIAL_MATHS_TOPICS)));
+          state.gs = normalizeGSTopics(JSON.parse(JSON.stringify(INITIAL_GS_MODULES)));
+          state.dailyHabits = JSON.parse(JSON.stringify(INITIAL_DAILY_HABITS));
+          state.customTasks = JSON.parse(JSON.stringify(INITIAL_CUSTOM_TASKS));
+          state.topicFiles = {};
+          extractInitialKeywords();
+          saveState();
+        }
+      } catch (e) {
+        console.error("Failed to load local state", e);
+        state.maths = normalizeMathsTopics(JSON.parse(JSON.stringify(INITIAL_MATHS_TOPICS)));
+        state.gs = normalizeGSTopics(JSON.parse(JSON.stringify(INITIAL_GS_MODULES)));
+        state.dailyHabits = JSON.parse(JSON.stringify(INITIAL_DAILY_HABITS));
+        state.customTasks = JSON.parse(JSON.stringify(INITIAL_CUSTOM_TASKS));
+        state.topicFiles = {};
+        extractInitialKeywords();
+      }
+
+      if (state.darkMode || window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+        state.darkMode = true;
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+
+      updateStorageInfo();
+      updatePrelimsCountdown();
+      updateOptionalCountdown();
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem("upsc_prep_tracker_v2", JSON.stringify(state));
+        updateStorageInfo();
+      } catch (e) {
+        console.warn("Storage quota or disabled", e);
+      }
+    }
+
+    function extractInitialKeywords() {
+      state.keywords = [];
+      state.gs.forEach(m => {
+        if (m.keywords && m.keywords.length) {
+          m.keywords.forEach(kw => {
+            state.keywords.push({
+              id: 'kw_' + Math.random().toString(36).substr(2, 9),
+              text: kw,
+              subject: 'GS' + m.paper,
+              addedAt: new Date().toISOString()
+            });
+          });
+        }
+      });
+      const mathKeywords = [
+        "Cayley-Hamilton Theorem", "Rank-Nullity Theorem", "Lagrange Mean Value Theorem",
+        "Cauchy Residue Theorem", "Weierstrass M-Test", "Dirichlet Integral",
+        "Gauss Divergence Theorem", "Serret-Frenet Formulae", "Simplex Duality Theorem",
+        "Charpit Method", "Runge-Kutta 4th Order", "Navier-Stokes Equation"
+      ];
+      mathKeywords.forEach(kw => {
+        state.keywords.push({
+          id: 'kw_' + Math.random().toString(36).substr(2, 9),
+          text: kw,
+          subject: 'Maths',
+          addedAt: new Date().toISOString()
+        });
+      });
+    }
+
+    function updateStorageInfo() {
+      try {
+        const raw = localStorage.getItem("upsc_prep_tracker_v2") || "";
+        const bytes = new Blob([raw]).size;
+        const kb = (bytes / 1024).toFixed(1);
+        const el = document.getElementById("storageSizeText");
+        if (el) el.textContent = kb + " KB";
+      } catch (e) {}
+    }
+
+    
+    function updateOptionalCountdown() {
+      const targetStr = state.optionalExamDate || "2026-09-20";
+      const target = new Date(targetStr + "T09:00:00");
+      const now = new Date();
+      const diffMs = target - now;
+      const days = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+      const countEl = document.getElementById("optionalDaysCount");
+      const countElV4 = document.getElementById("optionalDaysCountV4");
+      const topCountEl = document.getElementById("topOptionalCountdownText");
+      const dateDisplay = document.getElementById("optionalDateDisplay");
+
+      const displayDays = days > 0 ? days : 0;
+      if (countEl) countEl.textContent = `${displayDays} Days`;
+      if (countElV4) countElV4.textContent = `${displayDays}d`;
+      if (topCountEl) topCountEl.textContent = `${displayDays}d`;
+      if (dateDisplay) {
+        try {
+          const opts = { month: 'short', day: 'numeric', year: 'numeric' };
+          dateDisplay.textContent = target.toLocaleDateString('en-US', opts);
+        } catch (e) {
+          dateDisplay.textContent = targetStr;
+        }
+      }
+    }
+
+    function updatePrelimsCountdown() {
+      const targetStr = state.prelimsExamDate || "2026-05-24";
+      const target = new Date(targetStr + "T09:30:00");
+      const now = new Date();
+      const diffMs = target - now;
+      const days = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+      const countEl = document.getElementById("prelimsDaysCount");
+      const topCountEl = document.getElementById("topPrelimsCountdownText");
+      const dateDisplay = document.getElementById("prelimsDateDisplay");
+
+      const displayDays = days > 0 ? days : 0;
+      if (countEl) countEl.textContent = `${displayDays} Days`;
+      if (topCountEl) topCountEl.textContent = `${displayDays}d`;
+      if (dateDisplay) {
+        try {
+          const opts = { month: 'short', day: 'numeric', year: 'numeric' };
+          dateDisplay.textContent = target.toLocaleDateString('en-US', opts);
+        } catch (e) {
+          dateDisplay.textContent = targetStr;
+        }
+      }
+    }
+
+    // ==========================================
+    // TOAST NOTIFICATIONS
+    // ==========================================
+    function showToast(message, type = 'success') {
+      const container = document.getElementById("toastContainer");
+      if (!container) return;
+
+      const toast = document.createElement("div");
+      toast.className = `px-4 py-2.5 rounded-2xl text-xs font-semibold shadow-xl border flex items-center gap-2 transform transition-all duration-300 translate-y-2 opacity-0 pointer-events-auto ${
+        type === 'success' 
+          ? 'bg-emerald-900/95 text-emerald-100 border-emerald-700' 
+          : type === 'warning'
+          ? 'bg-amber-900/95 text-amber-100 border-amber-700'
+          : 'bg-brand-900/95 text-brand-100 border-brand-700'
+      }`;
+
+      toast.innerHTML = `
+        <svg class="w-4 h-4 shrink-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span>${message}</span>
+      `;
+
+      container.appendChild(toast);
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 2500);
+    }
+
+    // ==========================================
+    // RENDER: MATHS OPTIONAL WITH CHECKPOINTS & NOTES
+    // ==========================================
+    let currentMathsPaperFilter = 'all';
+    let currentMathsStageFilter = 'all';
+    let currentMathsSearch = '';
+
+    function renderMaths() {
+      const container = document.getElementById("mathsTopicsContainer");
+      if (!container) return;
+
+      const filtered = state.maths.filter(t => {
+        if (currentMathsPaperFilter === 1 && t.paper !== 1) return false;
+        if (currentMathsPaperFilter === 2 && t.paper !== 2) return false;
+
+        if (currentMathsSearch) {
+          const q = currentMathsSearch.toLowerCase();
+          const match = t.title.toLowerCase().includes(q) || t.subtopics.toLowerCase().includes(q);
+          if (!match) return false;
+        }
+
+        const cps = t.checkpoints || {};
+        const hasPending = MATHS_CHECKPOINTS_DEF.some(cp => !cps[cp.key] || cps[cp.key].status === 'pending');
+        const hasInProgress = MATHS_CHECKPOINTS_DEF.some(cp => cps[cp.key] && cps[cp.key].status === 'in_progress');
+        const allCompleted = MATHS_CHECKPOINTS_DEF.every(cp => cps[cp.key] && cps[cp.key].status === 'completed');
+        const hasNotes = state.topicFiles[t.id] && state.topicFiles[t.id].length > 0;
+        const hasTarget = MATHS_CHECKPOINTS_DEF.some(cp => cps[cp.key] && cps[cp.key].target_date);
+
+        if (currentMathsStageFilter === 'pending' && !hasPending) return false;
+        if (currentMathsStageFilter === 'in_progress' && !hasInProgress) return false;
+        if (currentMathsStageFilter === 'completed' && !allCompleted) return false;
+        if (currentMathsStageFilter === 'has_notes' && !hasNotes) return false;
+        if (currentMathsStageFilter === 'has_target' && !hasTarget) return false;
+
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-12 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 text-slate-500 text-xs">
+            No Maths topics match the current filter criteria.
+          </div>
+        `;
+        updateMathsProgress();
+        return;
+      }
+
+      container.innerHTML = filtered.map(t => {
+        const cps = t.checkpoints || {};
+        let score = 0;
+        MATHS_CHECKPOINTS_DEF.forEach(cp => {
+          const st = cps[cp.key] ? cps[cp.key].status : 'pending';
+          if (st === 'completed') score += 1;
+          else if (st === 'in_progress') score += 0.5;
+        });
+        const pct = Math.round((score / 8) * 100);
+        const files = state.topicFiles[t.id] || [];
+
+        return `
+          <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm transition hover:border-brand-300 dark:hover:border-brand-700/60" data-id="${t.id}">
+            <!-- Header Row -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800/80">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
+                  t.paper === 1 
+                    ? 'bg-blue-50 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800' 
+                    : 'bg-purple-50 dark:bg-purple-950/80 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800'
+                }">
+                  Paper ${t.paper}
+                </span>
+                <h3 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white">${t.title}</h3>
+                
+                ${files.length > 0 ? `
+                  <button class="btnViewTopicFiles px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 text-[11px] font-bold flex items-center gap-1 active:scale-95 transition" data-id="${t.id}">
+                    <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+                    <span>${files.length} Notes File${files.length > 1 ? 's' : ''}</span>
+                  </button>
+                ` : ''}
+
+                ${t.drive_link ? `
+                  <a href="${t.drive_link}" target="_blank" rel="noopener" class="text-brand-600 dark:text-brand-400 hover:text-brand-700 p-1 rounded-md" title="Open External Drive Link">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M7.71 3.5L1.15 15l3.43 6l6.55-11.5L7.71 3.5zm1.72 1.5l5.14 9h7.43l-5.14-9H9.43zm-3.71 12l2.28 4h14l-2.28-4H5.72z"/></svg>
+                  </a>
+                ` : ''}
+              </div>
+
+              <div class="flex items-center gap-3">
+                <!-- Mini Progress Pill -->
+                <div class="flex items-center gap-1.5 text-xs font-semibold">
+                  <span class="text-slate-500 dark:text-slate-400 text-[11px]">${Math.round(score)}/8 Steps</span>
+                  <div class="w-16 bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                    <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full" style="width: ${pct}%"></div>
+                  </div>
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold">${pct}%</span>
+                </div>
+
+                <!-- Topic Settings & File Upload Button -->
+                <button class="btnEditTopic px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center gap-1.5 transition active:scale-95" data-id="${t.id}" title="Upload notes & configure topic">
+                  <svg class="w-3.5 h-3.5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                  <span>Notes/Scores</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Syllabus Subtopics snippet -->
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-2 line-clamp-2 leading-relaxed">
+              ${t.subtopics}
+            </p>
+
+            <!-- 8 Granular Checkpoint Cards (Status, Target Date, Memo) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 mt-4 pt-2 border-t border-slate-100 dark:border-slate-800/80">
+              ${MATHS_CHECKPOINTS_DEF.map(cp => {
+                const item = cps[cp.key] || { status: 'pending', target_date: '', memo: '' };
+                const st = item.status || 'pending';
+                
+                let cardTheme = "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300";
+                let statusBadge = "bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300";
+                let statusIcon = "⏳ Pending";
+                
+                if (st === 'completed') {
+                  cardTheme = "bg-emerald-50/80 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200";
+                  statusBadge = "bg-emerald-500 text-white font-bold";
+                  statusIcon = "✅ Done";
+                } else if (st === 'in_progress') {
+                  cardTheme = "bg-indigo-50/80 dark:bg-indigo-950/30 border-indigo-300 dark:border-indigo-800 text-indigo-900 dark:text-indigo-200";
+                  statusBadge = "bg-indigo-600 text-white font-bold";
+                  statusIcon = "🔄 Doing";
+                }
+
+                return `
+                  <div class="p-3 rounded-2xl border transition flex flex-col justify-between ${cardTheme}" data-topic-id="${t.id}" data-cp-key="${cp.key}">
+                    <div class="flex items-start justify-between gap-1">
+                      <div>
+                        <span class="text-[10px] font-bold uppercase tracking-wider block opacity-70">${cp.label}</span>
+                        <span class="text-xs font-bold leading-tight block mt-0.5">${cp.sublabel}</span>
+                      </div>
+                      <button class="btnOpenCheckpointModal p-1 rounded-lg hover:bg-black/10 dark:hover:bg-white/10 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition" data-topic-id="${t.id}" data-cp-key="${cp.key}" title="Edit Checkpoint Details, Date & Memo">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                      </button>
+                    </div>
+
+                    <!-- Target Date & Memo Info Badges -->
+                    <div class="space-y-1.5 my-2">
+                      ${item.target_date ? `
+                        <div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-white/80 dark:bg-slate-900/80 shadow-2xs border border-slate-200 dark:border-slate-700">
+                          <span>📅 Due:</span>
+                          <span class="font-bold">${item.target_date}</span>
+                        </div>
+                      ` : ''}
+
+                      ${item.memo ? `
+                        <div class="text-[11px] font-normal italic line-clamp-1 bg-white/60 dark:bg-slate-900/60 px-2 py-0.5 rounded-md border border-slate-200/60 dark:border-slate-800" title="${item.memo}">
+                          💬 ${item.memo}
+                        </div>
+                      ` : ''}
+                    </div>
+
+                    <!-- Quick Status Toggle Pill -->
+                    <div class="pt-1.5 border-t border-black/5 dark:border-white/5 flex items-center justify-between">
+                      <button class="btnCycleCheckpointStatus px-2.5 py-1 rounded-lg text-[10px] font-bold transition active:scale-95 ${statusBadge}" data-topic-id="${t.id}" data-cp-key="${cp.key}" title="Click to cycle status: Pending -> In Progress -> Completed">
+                        ${statusIcon}
+                      </button>
+                      <button class="btnOpenCheckpointModal text-[10px] text-brand-600 dark:text-brand-400 font-semibold hover:underline" data-topic-id="${t.id}" data-cp-key="${cp.key}">
+                        ${item.memo || item.target_date ? 'Edit Memo' : '+ Memo'}
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Attach Quick Status Cycle listeners
+      document.querySelectorAll(".btnCycleCheckpointStatus").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const topicId = btn.dataset.topicId;
+          const cpKey = btn.dataset.cpKey;
+          const topic = state.maths.find(t => t.id === topicId);
+          if (topic && topic.checkpoints) {
+            const current = topic.checkpoints[cpKey].status || 'pending';
+            let next = 'in_progress';
+            if (current === 'pending') next = 'in_progress';
+            else if (current === 'in_progress') next = 'completed';
+            else next = 'pending';
+
+            topic.checkpoints[cpKey].status = next;
+            saveState();
+            renderMaths();
+            renderAnalyticsCharts();
+            showToast(`${topic.title} - ${cpKey.toUpperCase()} status updated to ${next.replace('_', ' ').toUpperCase()}`);
+          }
+        });
+      });
+
+      // Attach Open Checkpoint Modal listeners
+      document.querySelectorAll(".btnOpenCheckpointModal").forEach(btn => {
+        btn.addEventListener("click", () => {
+          openCheckpointModal(btn.dataset.topicId, btn.dataset.cpKey);
+        });
+      });
+
+      // Attach Open Topic Modal (Notes & Upload) listeners
+      document.querySelectorAll(".btnEditTopic, .btnViewTopicFiles").forEach(btn => {
+        btn.addEventListener("click", () => {
+          openTopicModal(btn.dataset.id);
+        });
+      });
+
+      updateMathsProgress();
+    }
+
+    function updateMathsProgress() {
+      let totalPoints = state.maths.length * 8;
+      let earnedPoints = 0;
+      let p1Done = 0, p1Total = 0;
+      let p2Done = 0, p2Total = 0;
+
+      state.maths.forEach(t => {
+        const cps = t.checkpoints || {};
+        let tScore = 0;
+        MATHS_CHECKPOINTS_DEF.forEach(cp => {
+          const st = cps[cp.key] ? cps[cp.key].status : 'pending';
+          if (st === 'completed') tScore += 1;
+          else if (st === 'in_progress') tScore += 0.5;
+        });
+
+        earnedPoints += tScore;
+        if (t.paper === 1) {
+          p1Total++;
+          if (tScore === 8) p1Done++;
+        } else {
+          p2Total++;
+          if (tScore === 8) p2Done++;
+        }
+      });
+
+      const pct = Math.round((earnedPoints / totalPoints) * 100);
+      const bar = document.getElementById("mathsProgressBar");
+      const text = document.getElementById("mathsProgressPercent");
+      const badge = document.getElementById("mathsOverallBadge");
+      const p1Sum = document.getElementById("mathsP1Summary");
+      const p2Sum = document.getElementById("mathsP2Summary");
+
+      if (bar) bar.style.width = pct + '%';
+      if (text) text.textContent = pct + '%';
+      if (badge) badge.textContent = pct + '% Completed (' + Math.round(earnedPoints) + '/' + totalPoints + ' checkpoints)';
+      if (p1Sum) p1Sum.textContent = `${p1Done}/${p1Total} Mastered`;
+      if (p2Sum) p2Sum.textContent = `${p2Done}/${p2Total} Mastered`;
+    }
+
+    // ==========================================
+    // CHECKPOINT DETAIL MODAL HANDLERS
+    // ==========================================
+    function openCheckpointModal(topicId, cpKey) {
+      const topic = state.maths.find(t => t.id === topicId);
+      if (!topic) return;
+
+      const cpDef = MATHS_CHECKPOINTS_DEF.find(c => c.key === cpKey);
+      state.activeTopicId = topicId;
+      state.activeCheckpointKey = cpKey;
+
+      const cp = topic.checkpoints[cpKey] || { status: 'pending', target_date: '', memo: '' };
+      state.selectedCpStatus = cp.status || 'pending';
+
+      const badge = document.getElementById("cpModalTopicBadge");
+      const title = document.getElementById("cpModalTitle");
+      const targetDate = document.getElementById("cpModalTargetDate");
+      const memo = document.getElementById("cpModalMemo");
+
+      if (badge) badge.textContent = `Paper ${topic.paper} • ${topic.title}`;
+      if (title) title.textContent = `${cpDef ? cpDef.label : cpKey} Configuration`;
+      if (targetDate) targetDate.value = cp.target_date || '';
+      if (memo) memo.value = cp.memo || '';
+
+      updateCpStatusButtonsUI();
+
+      const modal = document.getElementById("checkpointModal");
+      if (modal) modal.classList.remove("hidden");
+    }
+
+    function updateCpStatusButtonsUI() {
+      const btnPending = document.getElementById("cpBtnStatusPending");
+      const btnProgress = document.getElementById("cpBtnStatusInProgress");
+      const btnCompleted = document.getElementById("cpBtnStatusCompleted");
+
+      [btnPending, btnProgress, btnCompleted].forEach(b => {
+        if (!b) return;
+        b.className = "cpStatusBtn py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition active:scale-95 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300";
+      });
+
+      if (state.selectedCpStatus === 'pending' && btnPending) {
+        btnPending.className = "cpStatusBtn py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition active:scale-95 bg-amber-500 text-white border-amber-600 shadow-sm";
+      } else if (state.selectedCpStatus === 'in_progress' && btnProgress) {
+        btnProgress.className = "cpStatusBtn py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition active:scale-95 bg-indigo-600 text-white border-indigo-700 shadow-sm";
+      } else if (state.selectedCpStatus === 'completed' && btnCompleted) {
+        btnCompleted.className = "cpStatusBtn py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition active:scale-95 bg-emerald-600 text-white border-emerald-700 shadow-sm";
+      }
+    }
+
+    function closeCheckpointModal() {
+      const modal = document.getElementById("checkpointModal");
+      if (modal) modal.classList.add("hidden");
+      state.activeTopicId = null;
+      state.activeCheckpointKey = null;
+    }
+
+    function saveCheckpointModal() {
+      if (!state.activeTopicId || !state.activeCheckpointKey) return;
+      const topic = state.maths.find(t => t.id === state.activeTopicId);
+      if (topic && topic.checkpoints) {
+        const targetDate = document.getElementById("cpModalTargetDate").value;
+        const memo = document.getElementById("cpModalMemo").value.trim();
+
+        topic.checkpoints[state.activeCheckpointKey] = {
+          status: state.selectedCpStatus,
+          target_date: targetDate,
+          memo: memo
+        };
+
+        saveState();
+        renderMaths();
+        renderAnalyticsCharts();
+        closeCheckpointModal();
+        showToast(`Saved checkpoint: ${state.selectedCpStatus.toUpperCase()}`);
+      }
+    }
+
+    // ==========================================
+    // TOPIC DETAIL MODAL & FILE UPLOAD HANDLERS
+    // ==========================================
+    function openTopicModal(topicId) {
+      const topic = state.maths.find(t => t.id === topicId);
+      if (!topic) return;
+
+      state.activeTopicId = topicId;
+
+      const modal = document.getElementById("topicDetailModal");
+      const badge = document.getElementById("modalTopicBadge");
+      const title = document.getElementById("modalTopicTitle");
+      const subtopics = document.getElementById("modalSubtopics");
+      const driveInput = document.getElementById("modalDriveLinkInput");
+      const secScoreInput = document.getElementById("modalSecScoreInput");
+      const fltScoreInput = document.getElementById("modalFltScoreInput");
+      const notesInput = document.getElementById("modalPersonalNotesInput");
+
+      if (badge) badge.textContent = `Paper ${topic.paper}`;
+      if (title) title.textContent = `${topic.title} Documents & Notes`;
+      if (subtopics) subtopics.textContent = topic.subtopics;
+      if (driveInput) driveInput.value = topic.drive_link || '';
+      if (secScoreInput) secScoreInput.value = topic.sec_score || '';
+      if (fltScoreInput) fltScoreInput.value = topic.flt_score || '';
+      if (notesInput) notesInput.value = topic.notes || '';
+
+      renderTopicUploadedFiles(topicId);
+
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function renderTopicUploadedFiles(topicId) {
+      const container = document.getElementById("modalUploadedFilesContainer");
+      if (!container) return;
+
+      const files = state.topicFiles[topicId] || [];
+      if (files.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-4 text-[11px] text-slate-400 bg-white/60 dark:bg-slate-900/60 rounded-xl border border-dashed border-slate-300 dark:border-slate-800">
+            No short notes files uploaded yet. Upload your PDF notes or scanned formula sheets!
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = files.map(f => {
+        return `
+          <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs">
+            <div class="flex items-center gap-2 truncate max-w-[70%]">
+              <span class="text-lg">📄</span>
+              <div class="truncate">
+                <p class="font-bold text-xs text-slate-800 dark:text-slate-100 truncate">${f.name}</p>
+                <span class="text-[10px] text-slate-400">${f.sizeFormatted} • ${f.uploadedAt}</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button class="btnPreviewFile px-2.5 py-1 rounded-lg bg-brand-50 hover:bg-brand-100 dark:bg-brand-950/80 text-brand-700 dark:text-brand-300 font-semibold text-[11px] active:scale-95 transition" data-file-id="${f.id}" data-topic-id="${topicId}">
+                View
+              </button>
+              <button class="btnDeleteTopicFile p-1 rounded-lg text-slate-400 hover:text-red-500 transition" data-file-id="${f.id}" data-topic-id="${topicId}">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.querySelectorAll(".btnPreviewFile").forEach(b => {
+        b.addEventListener("click", () => {
+          previewFile(b.dataset.topicId, b.dataset.fileId);
+        });
+      });
+
+      container.querySelectorAll(".btnDeleteTopicFile").forEach(b => {
+        b.addEventListener("click", () => {
+          deleteTopicFile(b.dataset.topicId, b.dataset.fileId);
+        });
+      });
+    }
+
+    function handleFileUpload(files) {
+      if (!state.activeTopicId || !files || files.length === 0) return;
+      const topicId = state.activeTopicId;
+
+      if (!state.topicFiles[topicId]) {
+        state.topicFiles[topicId] = [];
+      }
+
+      Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        const sizeFormatted = (file.size / (1024 * 1024)).toFixed(2) + " MB";
+        
+        reader.onload = function(e) {
+          const fileObj = {
+            id: 'file_' + Math.random().toString(36).substr(2, 9),
+            name: file.name,
+            type: file.type || 'application/pdf',
+            size: file.size,
+            sizeFormatted: sizeFormatted,
+            dataUrl: e.target.result,
+            uploadedAt: new Date().toISOString().slice(0, 10)
+          };
+
+          state.topicFiles[topicId].push(fileObj);
+          saveState();
+          renderTopicUploadedFiles(topicId);
+          renderMaths();
+          showToast(`Uploaded ${file.name} successfully!`);
+        };
+
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function previewFile(topicId, fileId) {
+      const files = state.topicFiles[topicId] || [];
+      const file = files.find(f => f.id === fileId);
+      if (!file) return;
+
+      const modal = document.getElementById("filePreviewModal");
+      const title = document.getElementById("filePreviewTitle");
+      const size = document.getElementById("filePreviewSize");
+      const body = document.getElementById("filePreviewBody");
+      const dlBtn = document.getElementById("btnDownloadPreviewFile");
+
+      if (title) title.textContent = file.name;
+      if (size) size.textContent = file.sizeFormatted;
+      if (dlBtn) {
+        dlBtn.href = file.dataUrl;
+        dlBtn.download = file.name;
+      }
+
+      if (body) {
+        if (file.type && file.type.startsWith('image/')) {
+          body.innerHTML = `<img src="${file.dataUrl}" alt="${file.name}" class="max-w-full max-h-[75vh] object-contain rounded-xl shadow-md">`;
+        } else {
+          body.innerHTML = `<iframe src="${file.dataUrl}" class="w-full h-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white" title="${file.name}"></iframe>`;
+        }
+      }
+
+      if (modal) modal.classList.remove("hidden");
+    }
+
+    function deleteTopicFile(topicId, fileId) {
+      if (!state.topicFiles[topicId]) return;
+      state.topicFiles[topicId] = state.topicFiles[topicId].filter(f => f.id !== fileId);
+      saveState();
+      renderTopicUploadedFiles(topicId);
+      renderMaths();
+      showToast("Document deleted", "warning");
+    }
+
+    function closeTopicModal() {
+      const modal = document.getElementById("topicDetailModal");
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function saveTopicModal() {
+      if (!state.activeTopicId) return;
+      const topic = state.maths.find(t => t.id === state.activeTopicId);
+      if (topic) {
+        topic.drive_link = (document.getElementById("modalDriveLinkInput") || {}).value || '';
+        topic.sec_score = (document.getElementById("modalSecScoreInput") || {}).value || '';
+        topic.flt_score = (document.getElementById("modalFltScoreInput") || {}).value || '';
+        topic.notes = (document.getElementById("modalPersonalNotesInput") || {}).value || '';
+
+        saveState();
+        renderMaths();
+        closeTopicModal();
+        showToast(`Saved details for ${topic.title}`);
+      }
+    }
+
+    // ==========================================
+    // RENDER: GS 1-4 MODULES
+    // ==========================================
+    let currentGSPaperFilter = 'all';
+
+    function renderGS() {
+      const container = document.getElementById("gsModulesContainer");
+      if (!container) return;
+
+      const filtered = state.gs.filter(m => {
+        if (currentGSPaperFilter === 'all') return true;
+        return m.paper === parseInt(currentGSPaperFilter);
+      });
+
+      const gsLabels = {
+        sn: 'Short Notes (1-2 Pagers)',
+        rev_mains: '1 Revision for Mains',
+        ca_rev: 'Current Affairs Rev 1',
+        kw_extracted: 'Keywords Extracted'
+      };
+
+      container.innerHTML = filtered.map(m => {
+        const cps = m.checkpoints || {};
+        let score = 0;
+        ['sn', 'rev_mains', 'ca_rev', 'kw_extracted'].forEach(k => {
+          const st = cps[k] ? cps[k].status : 'pending';
+          if (st === 'completed') score += 1;
+          else if (st === 'in_progress') score += 0.5;
+        });
+        const pct = Math.round((score / 4) * 100);
+
+        return `
+          <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm transition hover:border-amber-300 dark:hover:border-amber-700/60" data-id="${m.id}">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
+              <div class="flex items-center gap-2.5">
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                  GS ${m.paper}
+                </span>
+                <h3 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white">${m.title}</h3>
+              </div>
+              <div class="flex items-center gap-2 text-xs font-semibold">
+                <span class="text-slate-500 dark:text-slate-400 text-[11px]">${Math.round(score)}/4 Checkpoints</span>
+                <span class="text-amber-600 dark:text-amber-400 font-bold">${pct}%</span>
+              </div>
+            </div>
+
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+              ${m.subtopics}
+            </p>
+
+            <!-- 4 Required Checkpoints for GS -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 mt-3 pt-2">
+              ${['sn', 'rev_mains', 'ca_rev', 'kw_extracted'].map(k => {
+                const item = cps[k] || { status: 'pending', target_date: '', memo: '' };
+                const st = item.status || 'pending';
+                let theme = "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300";
+                let badge = "bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300";
+                let icon = "⏳ Pending";
+
+                if (st === 'completed') {
+                  theme = "bg-amber-50/80 dark:bg-amber-950/30 border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-200";
+                  badge = "bg-amber-600 text-white font-bold";
+                  icon = "✅ Done";
+                } else if (st === 'in_progress') {
+                  theme = "bg-orange-50/80 dark:bg-orange-950/30 border-orange-300 dark:border-orange-800 text-orange-900 dark:text-orange-200";
+                  badge = "bg-orange-600 text-white font-bold";
+                  icon = "🔄 In Progress";
+                }
+
+                return `
+                  <div class="p-3 rounded-2xl border transition flex flex-col justify-between ${theme}">
+                    <div class="flex items-start justify-between">
+                      <span class="text-xs font-bold">${gsLabels[k]}</span>
+                    </div>
+                    ${item.memo ? `<p class="text-[11px] italic opacity-80 my-1 truncate">💬 ${item.memo}</p>` : ''}
+                    <div class="pt-2 mt-2 border-t border-black/5 dark:border-white/5 flex items-center justify-between">
+                      <button class="btnCycleGSStatus px-2 py-0.5 rounded-lg text-[10px] font-bold ${badge}" data-id="${m.id}" data-key="${k}">
+                        ${icon}
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            <!-- Extracted keywords tags for this module -->
+            <div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-1.5">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mr-1">Associated Keywords:</span>
+              ${(m.keywords || []).map(kw => `
+                <span class="px-2 py-0.5 rounded-lg text-[10px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                  ${kw}
+                </span>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      document.querySelectorAll(".btnCycleGSStatus").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const mod = state.gs.find(x => x.id === btn.dataset.id);
+          const key = btn.dataset.key;
+          if (mod && mod.checkpoints) {
+            const current = mod.checkpoints[key].status || 'pending';
+            let next = 'in_progress';
+            if (current === 'pending') next = 'in_progress';
+            else if (current === 'in_progress') next = 'completed';
+            else next = 'pending';
+
+            mod.checkpoints[key].status = next;
+            saveState();
+            renderGS();
+            renderAnalyticsCharts();
+            showToast(`GS${mod.paper} updated to ${next.toUpperCase()}`);
+          }
+        });
+      });
+
+      updateGSProgress();
+    }
+
+    function updateGSProgress() {
+      let totalSteps = state.gs.length * 4;
+      let completedSteps = 0;
+      const pTotals = { 1: { done: 0, total: 0 }, 2: { done: 0, total: 0 }, 3: { done: 0, total: 0 }, 4: { done: 0, total: 0 } };
+
+      state.gs.forEach(m => {
+        const cps = m.checkpoints || {};
+        let score = 0;
+        ['sn', 'rev_mains', 'ca_rev', 'kw_extracted'].forEach(k => {
+          const st = cps[k] ? cps[k].status : 'pending';
+          if (st === 'completed') score += 1;
+          else if (st === 'in_progress') score += 0.5;
+        });
+
+        completedSteps += score;
+        pTotals[m.paper].total += 4;
+        pTotals[m.paper].done += score;
+      });
+
+      const overallPct = Math.round((completedSteps / totalSteps) * 100);
+      const bar = document.getElementById("gsProgressBar");
+      const text = document.getElementById("gsProgressPercent");
+      const badge = document.getElementById("gsOverallBadge");
+
+      if (bar) bar.style.width = overallPct + '%';
+      if (text) text.textContent = overallPct + '%';
+      if (badge) badge.textContent = overallPct + '% Completed (' + Math.round(completedSteps) + '/' + totalSteps + ' checkpoints)';
+
+      for (let i = 1; i <= 4; i++) {
+        const el = document.getElementById(`gs${i}Score`);
+        if (el && pTotals[i].total > 0) {
+          const p = Math.round((pTotals[i].done / pTotals[i].total) * 100);
+          el.textContent = p + '%';
+        }
+      }
+    }
+
+    // ==========================================
+    // RENDER: KEYWORD EXTRACTION & VAULT
+    // ==========================================
+    let currentKwSubjectFilter = 'all';
+
+    function renderKeywords() {
+      const container = document.getElementById("keywordTagsContainer");
+      const badge = document.getElementById("keywordCountBadge");
+      if (!container) return;
+
+      const filtered = state.keywords.filter(kw => {
+        if (currentKwSubjectFilter === 'all') return true;
+        if (currentKwSubjectFilter === 'Maths') return kw.subject.includes('Maths');
+        return kw.subject === currentKwSubjectFilter;
+      });
+
+      if (badge) badge.textContent = `${filtered.length} Keywords`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="w-full text-center py-6 text-slate-400 text-xs">
+            No keywords found for this filter. Use the extractor above to extract keywords from your class notes!
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(kw => {
+        let colorClass = "bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700";
+        if (kw.subject.includes('GS1')) colorClass = "bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800";
+        else if (kw.subject.includes('GS2')) colorClass = "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800";
+        else if (kw.subject.includes('GS3')) colorClass = "bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800";
+        else if (kw.subject.includes('GS4')) colorClass = "bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800";
+        else if (kw.subject.includes('Maths')) colorClass = "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800";
+
+        return `
+          <div class="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border shadow-2xs transition hover:scale-105 active:scale-95 cursor-pointer ${colorClass}" data-id="${kw.id}" data-text="${kw.text}" title="Click to copy keyword">
+            <span class="kwText">${kw.text}</span>
+            <span class="text-[9px] font-bold opacity-60 uppercase">${kw.subject}</span>
+            <button class="btnDeleteKw opacity-0 group-hover:opacity-100 p-0.5 text-slate-400 hover:text-red-500 rounded transition" data-id="${kw.id}" title="Remove">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      container.querySelectorAll(".group").forEach(el => {
+        el.addEventListener("click", (e) => {
+          if (e.target.closest('.btnDeleteKw')) return;
+          const text = el.dataset.text;
+          copyToClipboard(text);
+          showToast(`Copied keyword: "${text}"`);
+        });
+      });
+
+      container.querySelectorAll(".btnDeleteKw").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const id = btn.dataset.id;
+          state.keywords = state.keywords.filter(k => k.id !== id);
+          saveState();
+          renderKeywords();
+          showToast("Keyword removed", "warning");
+        });
+      });
+    }
+
+    function runKeywordExtraction() {
+      const input = document.getElementById("kwExtractorInput");
+      const subjectSelect = document.getElementById("kwAssignSubject");
+      if (!input || !input.value.trim()) {
+        showToast("Please paste some notes or editorial text first", "warning");
+        return;
+      }
+
+      const text = input.value;
+      const subject = subjectSelect ? subjectSelect.value : "GS2";
+
+      const patterns = [
+        /Article\s+\d+[A-Z]?/gi,
+        /\b\d{1,3}(?:st|nd|rd|th)\s+Constitutional\s+Amendment\b/gi,
+        /\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\s+Commission\b/g,
+        /\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\s+Committee\b/g,
+        /\bDoctrine\s+of\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*/g,
+        /\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\s+Theorem\b/g,
+        /\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\s+Act\b/g,
+        /\b[A-Z][A-Z0-9]{2,}\b/g
+      ];
+
+      const extracted = new Set();
+      patterns.forEach(p => {
+        const matches = text.match(p);
+        if (matches) {
+          matches.forEach(m => {
+            const clean = m.trim();
+            if (clean.length > 2 && clean.length < 50) extracted.add(clean);
+          });
+        }
+      });
+
+      if (text.includes(',')) {
+        text.split(',').forEach(item => {
+          const clean = item.trim();
+          if (clean.length > 3 && clean.length < 40 && !clean.includes('\n')) {
+            extracted.add(clean);
+          }
+        });
+      }
+
+      if (extracted.size === 0) {
+        const fallback = text.match(/\b[A-Z][a-z]+\s+[A-Z][a-z]+\b/g);
+        if (fallback) fallback.forEach(f => extracted.add(f.trim()));
+      }
+
+      if (extracted.size === 0) {
+        showToast("No distinct entities or keywords found. Try adding manually.", "warning");
+        return;
+      }
+
+      let count = 0;
+      extracted.forEach(term => {
+        const exists = state.keywords.some(k => k.text.toLowerCase() === term.toLowerCase());
+        if (!exists) {
+          state.keywords.unshift({
+            id: 'kw_' + Math.random().toString(36).substr(2, 9),
+            text: term,
+            subject: subject,
+            addedAt: new Date().toISOString()
+          });
+          count++;
+        }
+      });
+
+      saveState();
+      renderKeywords();
+      input.value = "";
+      showToast(`Successfully extracted and saved ${count} keywords under ${subject}!`);
+    }
+
+    // ==========================================
+    // RENDER: DAILY HABITS & PRELIMS TASK MAKER
+    // ==========================================
+    let currentChecklistSubtab = 'habits';
+    let currentTaskCategoryFilter = 'all';
+    let currentTaskStatusFilter = 'all';
+    let currentTaskPriorityFilter = 'all';
+
+    function renderChecklist() {
+      renderDailyHabits();
+      renderCustomTasks();
+    }
+
+    function renderDailyHabits() {
+      const container = document.getElementById("checklistItemsContainer");
+      const ratioEl = document.getElementById("checklistTodayRatio");
+      const remainingBadge = document.getElementById("checklistRemainingBadge");
+      if (!container) return;
+
+      const total = state.dailyHabits.length;
+      const done = state.dailyHabits.filter(c => c.done).length;
+      const remaining = total - done;
+
+      if (ratioEl) ratioEl.textContent = `${done}/${total} Done`;
+      if (remainingBadge) remainingBadge.textContent = `${remaining} Remaining`;
+
+      container.innerHTML = state.dailyHabits.map(task => {
+        return `
+          <div class="flex items-center justify-between p-3 rounded-2xl border transition ${
+            task.done 
+              ? 'bg-emerald-50/60 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800/60' 
+              : 'bg-slate-50/60 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800'
+          }">
+            <label class="flex items-center gap-3 cursor-pointer select-none flex-1">
+              <input type="checkbox" class="habitCheckbox w-4 h-4 rounded text-brand-600 focus:ring-0 cursor-pointer" data-id="${task.id}" ${task.done ? 'checked' : ''}>
+              <div>
+                <p class="text-xs font-semibold ${task.done ? 'line-through text-slate-400 dark:text-slate-500' : 'text-slate-800 dark:text-slate-100'}">
+                  ${task.title}
+                </p>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  ${task.category}
+                </span>
+              </div>
+            </label>
+            <button class="btnDeleteHabit text-slate-400 hover:text-red-500 p-1 rounded-lg transition" data-id="${task.id}" title="Delete habit">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      container.querySelectorAll(".habitCheckbox").forEach(cb => {
+        cb.addEventListener("change", (e) => {
+          const task = state.dailyHabits.find(t => t.id === e.target.dataset.id);
+          if (task) {
+            task.done = e.target.checked;
+            checkAndUpdateStreak();
+            saveState();
+            renderDailyHabits();
+            if (task.done) showToast(`Habit complete: ${task.title}`);
+          }
+        });
+      });
+
+      container.querySelectorAll(".btnDeleteHabit").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.dailyHabits = state.dailyHabits.filter(t => t.id !== btn.dataset.id);
+          saveState();
+          renderDailyHabits();
+          showToast("Habit removed", "warning");
+        });
+      });
+    }
+
+    function renderCustomTasks() {
+      const container = document.getElementById("customTasksListContainer");
+      if (!container) return;
+
+      const filtered = state.customTasks.filter(task => {
+        if (currentTaskCategoryFilter !== 'all') {
+          if (currentTaskCategoryFilter === 'Prelims' && !task.category.includes('Prelims')) return false;
+          if (currentTaskCategoryFilter === 'CSAT' && !task.category.includes('CSAT')) return false;
+          if (currentTaskCategoryFilter === 'Mocks' && !task.category.includes('Mock')) return false;
+          if (currentTaskCategoryFilter === 'Mains' && !(task.category.includes('Mains') || task.category.includes('Maths'))) return false;
+        }
+
+        if (currentTaskStatusFilter !== 'all' && task.status !== currentTaskStatusFilter) return false;
+        if (currentTaskPriorityFilter !== 'all' && task.priority.toLowerCase() !== currentTaskPriorityFilter.toLowerCase()) return false;
+
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 text-slate-500 text-xs">
+            No custom / Prelims tasks found. Click <strong>+ New Task</strong> to set a new milestone target!
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(task => {
+        const st = task.status || 'pending';
+        let statusBadge = "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
+        let statusText = "⏳ Pending";
+        if (st === 'completed') {
+          statusBadge = "bg-emerald-500 text-white font-bold";
+          statusText = "✅ Completed";
+        } else if (st === 'in_progress') {
+          statusBadge = "bg-indigo-600 text-white font-bold";
+          statusText = "🔄 In Progress";
+        }
+
+        let priorityBadge = "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300";
+        if (task.priority === 'High') priorityBadge = "bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 font-bold";
+        else if (task.priority === 'Medium') priorityBadge = "bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 font-semibold";
+
+        return `
+          <div class="bg-white dark:bg-slate-900 rounded-3xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between gap-2.5 transition hover:border-brand-300 dark:hover:border-brand-700">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+              <div>
+                <div class="flex flex-wrap items-center gap-1.5 mb-1">
+                  <span class="px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800">${task.category}</span>
+                  <span class="px-2 py-0.5 rounded-lg text-[10px] ${priorityBadge}">${task.priority} Priority</span>
+                  ${task.goal ? `<span class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">🎯 ${task.goal}</span>` : ''}
+                </div>
+                <h4 class="text-sm font-bold text-slate-900 dark:text-white ${st === 'completed' ? 'line-through text-slate-400 dark:text-slate-500' : ''}">
+                  ${task.title}
+                </h4>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button class="btnCycleCustomTaskStatus px-3 py-1.5 rounded-xl text-xs font-semibold shadow-2xs transition active:scale-95 ${statusBadge}" data-id="${task.id}" title="Click to cycle status: Pending -> In Progress -> Completed">
+                  ${statusText}
+                </button>
+                <button class="btnDeleteCustomTask p-1.5 rounded-xl text-slate-400 hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition" data-id="${task.id}" title="Delete task">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Memo & Target Date Row -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+              <div class="text-slate-600 dark:text-slate-400 italic">
+                ${task.memo ? `💬 ${task.memo}` : '<span class="opacity-40">No memo specified</span>'}
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                ${task.target_date ? `
+                  <span class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                    📅 Target: <strong class="text-slate-800 dark:text-slate-200">${task.target_date}</strong>
+                  </span>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.querySelectorAll(".btnCycleCustomTaskStatus").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const task = state.customTasks.find(t => t.id === btn.dataset.id);
+          if (task) {
+            let next = 'in_progress';
+            if (task.status === 'pending') next = 'in_progress';
+            else if (task.status === 'in_progress') next = 'completed';
+            else next = 'pending';
+
+            task.status = next;
+            saveState();
+            renderCustomTasks();
+            showToast(`Task status: ${next.toUpperCase()}`);
+          }
+        });
+      });
+
+      container.querySelectorAll(".btnDeleteCustomTask").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.customTasks = state.customTasks.filter(t => t.id !== btn.dataset.id);
+          saveState();
+          renderCustomTasks();
+          showToast("Task removed", "warning");
+        });
+      });
+    }
+
+    function checkAndUpdateStreak() {
+      const today = new Date().toISOString().slice(0,10);
+      const allDone = state.dailyHabits.length > 0 && state.dailyHabits.every(t => t.done);
+      if (allDone && state.lastStreakDate !== today) {
+        state.streak += 1;
+        state.lastStreakDate = today;
+        showToast(`🔥 Amazing! Day complete! Streak extended to ${state.streak} days!`);
+        updateStreakDisplay();
+      }
+    }
+
+    function updateStreakDisplay() {
+      const el = document.getElementById("streakCount");
+      if (el) el.textContent = state.streak;
+    }
+
+    // ==========================================
+    // RENDER: ANALYTICS & CHARTS
+    // ==========================================
+    let mathsChartInstance = null;
+    let gsRadarChartInstance = null;
+
+    function renderAnalyticsCharts() {
+      const mathsCanvas = document.getElementById("mathsStageChart");
+      if (mathsCanvas && window.Chart) {
+        const p1Data = MATHS_CHECKPOINTS_DEF.map(st => {
+          return state.maths.filter(t => t.paper === 1 && t.checkpoints && t.checkpoints[st.key] && t.checkpoints[st.key].status === 'completed').length;
+        });
+        const p2Data = MATHS_CHECKPOINTS_DEF.map(st => {
+          return state.maths.filter(t => t.paper === 2 && t.checkpoints && t.checkpoints[st.key] && t.checkpoints[st.key].status === 'completed').length;
+        });
+
+        if (mathsChartInstance) mathsChartInstance.destroy();
+
+        mathsChartInstance = new Chart(mathsCanvas, {
+          type: 'bar',
+          data: {
+            labels: MATHS_CHECKPOINTS_DEF.map(s => s.label),
+            datasets: [
+              {
+                label: 'Paper 1 (Max 6 Completed)',
+                data: p1Data,
+                backgroundColor: 'rgba(99, 102, 241, 0.85)',
+                borderRadius: 6
+              },
+              {
+                label: 'Paper 2 (Max 7 Completed)',
+                data: p2Data,
+                backgroundColor: 'rgba(16, 185, 129, 0.85)',
+                borderRadius: 6
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: { beginAtZero: true, max: 7, ticks: { stepSize: 1 } }
+            },
+            plugins: { legend: { position: 'bottom' } }
+          }
+        });
+      }
+
+      const gsCanvas = document.getElementById("gsRadarChart");
+      if (gsCanvas && window.Chart) {
+        const gsLabels = ['GS 1: Hist/Geo/Soc', 'GS 2: Polity/IR', 'GS 3: Econ/Env/S&T', 'GS 4: Ethics/Case'];
+        const gsData = [1, 2, 3, 4].map(p => {
+          const mods = state.gs.filter(m => m.paper === p);
+          if (!mods.length) return 0;
+          let done = 0;
+          mods.forEach(m => {
+            const cps = m.checkpoints || {};
+            ['sn', 'rev_mains', 'ca_rev', 'kw_extracted'].forEach(k => {
+              if (cps[k] && cps[k].status === 'completed') done += 1;
+              else if (cps[k] && cps[k].status === 'in_progress') done += 0.5;
+            });
+          });
+          return Math.round((done / (mods.length * 4)) * 100);
+        });
+
+        if (gsRadarChartInstance) gsRadarChartInstance.destroy();
+
+        gsRadarChartInstance = new Chart(gsCanvas, {
+          type: 'radar',
+          data: {
+            labels: gsLabels,
+            datasets: [{
+              label: 'Coverage %',
+              data: gsData,
+              fill: true,
+              backgroundColor: 'rgba(249, 115, 22, 0.25)',
+              borderColor: 'rgb(249, 115, 22)',
+              pointBackgroundColor: 'rgb(249, 115, 22)',
+              pointBorderColor: '#fff',
+              pointHoverBackgroundColor: '#fff',
+              pointHoverBorderColor: 'rgb(249, 115, 22)'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              r: { angleLines: { display: true }, suggestedMin: 0, suggestedMax: 100 }
+            },
+            plugins: { legend: { display: false } }
+          }
+        });
+      }
+    }
+
+    // ==========================================
+    // GOOGLE DRIVE SYNC & BACKUP LOGIC
+    // ==========================================
+    async function saveDirectToGoogleDrive() {
+      const dateStr = new Date().toISOString().slice(0, 10);
+      const fileName = `upsc_maths_prep_backup_${dateStr}.json`;
+      const backupJson = JSON.stringify(state, null, 2);
+      const backupBlob = new Blob([backupJson], { type: 'application/json' });
+      const backupFile = new File([backupBlob], fileName, { type: 'application/json' });
+
+      // 1. Check if native Web Share with files is supported (Android Chrome / Brave / Edge / Samsung Internet / Safari)
+      if (navigator.canShare && navigator.canShare({ files: [backupFile] })) {
+        try {
+          await navigator.share({
+            title: 'UPSC Maths & GS Prep Backup',
+            text: 'Save UPSC Prep backup directly to your Google Drive folder',
+            files: [backupFile]
+          });
+          const lastSync = document.getElementById("lastSyncTimeText");
+          const timeStr = new Date().toLocaleTimeString();
+          if (lastSync) lastSync.textContent = `${timeStr} (Saved to Drive)`;
+          showToast("Shared to Google Drive / device successfully!");
+          return;
+        } catch (err) {
+          if (err.name === 'AbortError') {
+            return; // User dismissed share dialog
+          }
+          console.warn("Native share error, falling back to direct download", err);
+        }
+      }
+
+      // 2. Fallback for Desktop / non-file share: download file and show Google Drive direct modal
+      exportJSONBackup();
+      const modal = document.getElementById("driveDirectModal");
+      const nameEl = document.getElementById("driveDirectModalFileName");
+      if (nameEl) nameEl.textContent = fileName;
+      if (modal) modal.classList.remove("hidden");
+    }
+
+    function exportJSONBackup() {
+      try {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+        const dlAnchorElem = document.createElement('a');
+        dlAnchorElem.setAttribute("href", dataStr);
+        dlAnchorElem.setAttribute("download", `upsc_maths_prep_backup_${new Date().toISOString().slice(0,10)}.json`);
+        dlAnchorElem.click();
+        showToast("Backup exported successfully!");
+      } catch (e) {
+        showToast("Failed to export backup", "warning");
+      }
+    }
+
+    function importJSONBackup(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (imported && (imported.maths || imported.gs)) {
+            state = Object.assign(state, imported);
+            state.maths = normalizeMathsTopics(state.maths || INITIAL_MATHS_TOPICS);
+            state.gs = normalizeGSTopics(state.gs || INITIAL_GS_MODULES);
+            if (!state.dailyHabits) state.dailyHabits = INITIAL_DAILY_HABITS;
+            if (!state.customTasks) state.customTasks = INITIAL_CUSTOM_TASKS;
+            if (!state.topicFiles) state.topicFiles = {};
+            saveState();
+            renderMaths();
+            renderGS();
+            renderChecklist();
+            renderKeywords();
+            renderAnalyticsCharts();
+            updateStreakDisplay();
+            updatePrelimsCountdown();
+            showToast("Backup restored successfully!");
+          } else {
+            showToast("Invalid backup JSON format", "warning");
+          }
+        } catch (err) {
+          showToast("Failed to parse JSON file", "warning");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function copyToClipboard(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).catch(() => {
+          fallbackCopyText(text);
+        });
+      } else {
+        fallbackCopyText(text);
+      }
+    }
+
+    function fallbackCopyText(text) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+      } catch (err) {
+        console.error('Fallback copy failed', err);
+      }
+      document.body.removeChild(textArea);
+    }
+
+    let tokenClient = null;
+    let driveActionIntent = 'push'; // 'push' or 'pull'
+
+    function initGoogleDriveAuth() {
+      const clientId = state.gdriveClientId;
+      if (!clientId) return;
+      if (window.google && google.accounts && google.accounts.oauth2) {
+        try {
+          tokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: clientId,
+            scope: 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.appdata',
+            error_callback: (error) => {
+              console.error("GSI error_callback:", error);
+              if (error && error.type === 'popup_failed_to_open') {
+                showToast("Popup blocked by browser. Please allow popups for this site.", "warning");
+              } else {
+                showToast("Google Auth error: " + ((error && error.message) || (error && error.type) || "Check client ID"), "warning");
+              }
+            },
+            callback: (tokenResponse) => {
+              if (tokenResponse.error !== undefined) {
+                showToast("Google Auth error: " + tokenResponse.error, "warning");
+                return;
+              }
+              state.gdriveAccessToken = tokenResponse.access_token;
+              const badge = document.getElementById("gdriveStatusBadge");
+              if (badge) {
+                badge.textContent = "Google Drive Connected";
+                badge.className = "text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300";
+              }
+              if (driveActionIntent === 'pull') {
+                restoreFromGoogleDriveCloud();
+              } else {
+                syncWithGoogleDriveCloud();
+              }
+            }
+          });
+        } catch (e) {
+          console.error("Failed to init Google Drive auth", e);
+        }
+      }
+    }
+
+    async function syncWithGoogleDriveCloud() {
+      driveActionIntent = 'push';
+      if (!state.gdriveAccessToken) {
+        if (!state.gdriveClientId) {
+          document.getElementById("gdriveSettingsBox").classList.remove("hidden");
+          showToast("Please enter your Google Cloud OAuth Client ID first", "warning");
+          return;
+        }
+        if (tokenClient) {
+          tokenClient.requestAccessToken({ prompt: 'consent' });
+        } else {
+          initGoogleDriveAuth();
+          if (tokenClient) tokenClient.requestAccessToken({ prompt: 'consent' });
+        }
+        return;
+      }
+
+      showToast("Syncing data to Google Drive...");
+      const fileContent = JSON.stringify(state, null, 2);
+      const fileBlob = new Blob([fileContent], { type: 'application/json' });
+
+      try {
+        const searchRes = await fetch(
+          "https://www.googleapis.com/drive/v3/files?q=name='upsc_maths_gs_tracker_backup.json' and trashed=false&fields=files(id)",
+          { headers: { 'Authorization': 'Bearer ' + state.gdriveAccessToken } }
+        );
+        const searchData = await searchRes.json();
+
+        let fileId = null;
+        if (searchData.files && searchData.files.length > 0) {
+          fileId = searchData.files[0].id;
+        } else {
+          // Step 1: Create file in Google Drive with clean JSON metadata
+          const createRes = await fetch('https://www.googleapis.com/drive/v3/files', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + state.gdriveAccessToken,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              name: 'upsc_maths_gs_tracker_backup.json',
+              mimeType: 'application/json'
+            })
+          });
+          const createData = await createRes.json();
+          if (!createRes.ok) {
+            throw new Error(createData.error ? createData.error.message : 'Failed to create file in Drive');
+          }
+          fileId = createData.id;
+        }
+
+        // Step 2: Upload backup content into the file
+        const uploadRes = await fetch(`https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=media`, {
+          method: 'PATCH',
+          headers: {
+            'Authorization': 'Bearer ' + state.gdriveAccessToken,
+            'Content-Type': 'application/json'
+          },
+          body: fileContent
+        });
+        const uploadData = await uploadRes.json();
+        if (!uploadRes.ok) {
+          throw new Error(uploadData.error ? uploadData.error.message : 'Failed to upload backup content');
+        }
+
+        const lastSync = document.getElementById("lastSyncTimeText");
+        const timeStr = new Date().toLocaleTimeString();
+        if (lastSync) lastSync.textContent = `${timeStr} (Google Drive)`;
+        showToast("Synchronized to Google Drive successfully!");
+      } catch (err) {
+        console.error("Cloud sync error", err);
+        showToast("Error uploading to Google Drive", "warning");
+      }
+    }
+
+    async function restoreFromGoogleDriveCloud() {
+      driveActionIntent = 'pull';
+      if (!state.gdriveAccessToken) {
+        if (!state.gdriveClientId) {
+          document.getElementById("gdriveSettingsBox").classList.remove("hidden");
+          showToast("Please enter your Google Cloud OAuth Client ID first", "warning");
+          return;
+        }
+        if (tokenClient) {
+          tokenClient.requestAccessToken({ prompt: 'consent' });
+        } else {
+          initGoogleDriveAuth();
+          if (tokenClient) tokenClient.requestAccessToken({ prompt: 'consent' });
+        }
+        return;
+      }
+
+      showToast("Fetching latest progress from Google Drive...");
+      try {
+        const searchRes = await fetch(
+          "https://www.googleapis.com/drive/v3/files?q=name='upsc_maths_gs_tracker_backup.json' and trashed=false&orderBy=modifiedTime desc&fields=files(id,name,modifiedTime)",
+          { headers: { 'Authorization': 'Bearer ' + state.gdriveAccessToken } }
+        );
+        const searchData = await searchRes.json();
+        if (!searchData.files || searchData.files.length === 0) {
+          showToast("No backup file found in your Google Drive yet. Click 'Push / Save to Drive' on your other device first!", "warning");
+          return;
+        }
+
+        const fileId = searchData.files[0].id;
+        const downloadRes = await fetch(
+          `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`,
+          { headers: { 'Authorization': 'Bearer ' + state.gdriveAccessToken } }
+        );
+        const imported = await downloadRes.json();
+
+        if (imported && (imported.maths || imported.gs)) {
+          state = Object.assign(state, imported);
+          state.maths = normalizeMathsTopics(state.maths || INITIAL_MATHS_TOPICS);
+          state.gs = normalizeGSTopics(state.gs || INITIAL_GS_MODULES);
+          if (!state.dailyHabits) state.dailyHabits = INITIAL_DAILY_HABITS;
+          if (!state.customTasks) state.customTasks = INITIAL_CUSTOM_TASKS;
+          if (!state.topicFiles) state.topicFiles = {};
+          saveState();
+          renderMaths();
+          renderGS();
+          renderChecklist();
+          renderKeywords();
+          renderAnalyticsCharts();
+          updateStreakDisplay();
+          updatePrelimsCountdown();
+          updateOptionalCountdown();
+
+          const lastSync = document.getElementById("lastSyncTimeText");
+          if (lastSync) lastSync.textContent = `${new Date().toLocaleTimeString()} (Restored from Drive)`;
+          showToast("🎉 Progress restored from Google Drive successfully!");
+        } else {
+          showToast("Google Drive backup file was empty or invalid", "warning");
+        }
+      } catch (err) {
+        console.error("Cloud restore error", err);
+        showToast("Failed to fetch backup from Google Drive", "warning");
+      }
+    }
+
+    function switchView(viewName) {
+      const views = {
+        maths: document.getElementById("viewMaths"),
+        gs: document.getElementById("viewGS"),
+        keywords: document.getElementById("viewKeywords"),
+        checklist: document.getElementById("viewChecklist"),
+        analytics: document.getElementById("viewAnalytics")
+      };
+
+      const navBtns = {
+        maths: document.getElementById("navBtnMaths"),
+        gs: document.getElementById("navBtnGS"),
+        keywords: document.getElementById("navBtnKeywords"),
+        checklist: document.getElementById("navBtnChecklist"),
+        analytics: document.getElementById("navBtnAnalytics")
+      };
+
+      Object.keys(views).forEach(k => {
+        if (views[k]) {
+          if (k === viewName) views[k].classList.remove('hidden');
+          else views[k].classList.add('hidden');
+        }
+      });
+
+      Object.keys(navBtns).forEach(k => {
+        const btn = navBtns[k];
+        if (!btn) return;
+        const iconDiv = btn.querySelector('div');
+        const textSpan = btn.querySelector('span');
+
+        if (k === viewName) {
+          btn.className = "flex flex-col items-center justify-center w-14 h-full text-brand-600 dark:text-brand-400 transition-all active:scale-90";
+          if (iconDiv) iconDiv.className = "p-1 rounded-full bg-brand-100 dark:bg-brand-950/60";
+          if (textSpan) textSpan.className = "text-[10px] font-bold mt-0.5";
+        } else {
+          btn.className = "flex flex-col items-center justify-center w-14 h-full text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-all active:scale-90";
+          if (iconDiv) iconDiv.className = "p-1 rounded-full";
+          if (textSpan) textSpan.className = "text-[10px] font-medium mt-0.5";
+        }
+      });
+
+      if (viewName === 'analytics') {
+        setTimeout(renderAnalyticsCharts, 100);
+      }
+    }
+
+    // ==========================================
+    // INITIALIZATION & EVENT LISTENERS
+    // ==========================================
+    document.addEventListener("DOMContentLoaded", () => {
+      loadState();
+
+      // Theme toggle
+      const btnTheme = document.getElementById("btnThemeToggle");
+      if (btnTheme) {
+        btnTheme.addEventListener("click", () => {
+          state.darkMode = !state.darkMode;
+          if (state.darkMode) document.documentElement.classList.add("dark");
+          else document.documentElement.classList.remove("dark");
+          saveState();
+          if (mathsChartInstance || gsRadarChartInstance) renderAnalyticsCharts();
+        });
+      }
+
+      // Bottom Navigation Buttons
+      document.getElementById("navBtnMaths").addEventListener("click", () => switchView('maths'));
+      document.getElementById("navBtnGS").addEventListener("click", () => switchView('gs'));
+      document.getElementById("navBtnKeywords").addEventListener("click", () => switchView('keywords'));
+      document.getElementById("navBtnChecklist").addEventListener("click", () => switchView('checklist'));
+      document.getElementById("navBtnAnalytics").addEventListener("click", () => switchView('analytics'));
+      document.getElementById("btnTopOptionalPill").addEventListener("click", () => {
+        switchView('maths');
+      });
+      document.getElementById("btnTopPrelimsPill").addEventListener("click", () => {
+        switchView('checklist');
+        setChecklistSubtab('custom');
+      });
+
+      // Maths Filters
+      const tabMAll = document.getElementById("tabMathsAll");
+      const tabMP1 = document.getElementById("tabMathsP1");
+      const tabMP2 = document.getElementById("tabMathsP2");
+
+      function updateMathsTabsUI() {
+        [tabMAll, tabMP1, tabMP2].forEach(b => {
+          b.className = "px-3 py-1.5 rounded-lg text-xs font-semibold transition active:scale-95 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white";
+        });
+        if (currentMathsPaperFilter === 'all') tabMAll.className = "px-3 py-1.5 rounded-lg text-xs font-semibold transition active:scale-95 bg-white dark:bg-slate-700 text-brand-600 dark:text-white shadow-xs";
+        else if (currentMathsPaperFilter === 1) tabMP1.className = "px-3 py-1.5 rounded-lg text-xs font-semibold transition active:scale-95 bg-white dark:bg-slate-700 text-brand-600 dark:text-white shadow-xs";
+        else if (currentMathsPaperFilter === 2) tabMP2.className = "px-3 py-1.5 rounded-lg text-xs font-semibold transition active:scale-95 bg-white dark:bg-slate-700 text-brand-600 dark:text-white shadow-xs";
+      }
+
+      tabMAll.addEventListener("click", () => { currentMathsPaperFilter = 'all'; updateMathsTabsUI(); renderMaths(); });
+      tabMP1.addEventListener("click", () => { currentMathsPaperFilter = 1; updateMathsTabsUI(); renderMaths(); });
+      tabMP2.addEventListener("click", () => { currentMathsPaperFilter = 2; updateMathsTabsUI(); renderMaths(); });
+
+      document.getElementById("mathsSearchInput").addEventListener("input", (e) => {
+        currentMathsSearch = e.target.value;
+        renderMaths();
+      });
+
+      document.getElementById("mathsStageFilter").addEventListener("change", (e) => {
+        currentMathsStageFilter = e.target.value;
+        renderMaths();
+      });
+
+      // Checkpoint Modal Handlers
+      document.getElementById("cpBtnStatusPending").addEventListener("click", () => { state.selectedCpStatus = 'pending'; updateCpStatusButtonsUI(); });
+      document.getElementById("cpBtnStatusInProgress").addEventListener("click", () => { state.selectedCpStatus = 'in_progress'; updateCpStatusButtonsUI(); });
+      document.getElementById("cpBtnStatusCompleted").addEventListener("click", () => { state.selectedCpStatus = 'completed'; updateCpStatusButtonsUI(); });
+
+      document.querySelectorAll(".btnQuickMemo").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const memoArea = document.getElementById("cpModalMemo");
+          const text = btn.dataset.memo;
+          if (memoArea.value) memoArea.value += "; " + text;
+          else memoArea.value = text;
+        });
+      });
+
+      document.getElementById("btnCloseCpModal").addEventListener("click", closeCheckpointModal);
+      document.getElementById("btnCancelCpModal").addEventListener("click", closeCheckpointModal);
+      document.getElementById("btnSaveCpModal").addEventListener("click", saveCheckpointModal);
+
+      // Topic Modal & File Upload
+      document.getElementById("btnCloseModal").addEventListener("click", closeTopicModal);
+      document.getElementById("btnCancelModal").addEventListener("click", closeTopicModal);
+      document.getElementById("btnSaveTopicModal").addEventListener("click", saveTopicModal);
+
+      const fileInput = document.getElementById("modalFileInput");
+      document.getElementById("btnTriggerUpload").addEventListener("click", () => fileInput.click());
+      fileInput.addEventListener("change", (e) => {
+        handleFileUpload(e.target.files);
+        fileInput.value = "";
+      });
+
+      document.getElementById("btnCloseFilePreview").addEventListener("click", () => {
+        document.getElementById("filePreviewModal").classList.add("hidden");
+      });
+
+      // Prelims Date Modal
+      document.getElementById("btnEditPrelimsDate").addEventListener("click", () => {
+        document.getElementById("prelimsDateInput").value = state.prelimsExamDate || "2026-05-24";
+        document.getElementById("prelimsDateModal").classList.remove("hidden");
+      });
+      
+      // Optional Date Modal Handlers
+      function openOptionalDateModal() {
+        document.getElementById("optionalDateInput").value = state.optionalExamDate || "2026-09-20";
+        document.getElementById("optionalDateModal").classList.remove("hidden");
+      }
+      document.getElementById("btnEditOptionalDate").addEventListener("click", openOptionalDateModal);
+      const btnEditOptV4 = document.getElementById("btnEditOptionalDateV4");
+      if (btnEditOptV4) btnEditOptV4.addEventListener("click", openOptionalDateModal);
+      document.getElementById("btnCloseOptionalDateModal").addEventListener("click", () => {
+        document.getElementById("optionalDateModal").classList.add("hidden");
+      });
+      document.getElementById("btnSaveOptionalDate").addEventListener("click", () => {
+        const val = document.getElementById("optionalDateInput").value;
+        if (val) {
+          state.optionalExamDate = val;
+          saveState();
+          updateOptionalCountdown();
+          document.getElementById("optionalDateModal").classList.add("hidden");
+          showToast("Maths Optional exam countdown updated!");
+        }
+      });
+
+      document.getElementById("btnClosePrelimsDateModal").addEventListener("click", () => {
+        document.getElementById("prelimsDateModal").classList.add("hidden");
+      });
+      document.getElementById("btnSavePrelimsDate").addEventListener("click", () => {
+        const val = document.getElementById("prelimsDateInput").value;
+        if (val) {
+          state.prelimsExamDate = val;
+          saveState();
+          updatePrelimsCountdown();
+          document.getElementById("prelimsDateModal").classList.add("hidden");
+          showToast("Prelims exam countdown updated!");
+        }
+      });
+
+      // Checklist Sub-Tabs
+      const subtabDaily = document.getElementById("subtabDailyHabits");
+      const subtabCustom = document.getElementById("subtabCustomTasks");
+      const contDaily = document.getElementById("containerDailyHabits");
+      const contCustom = document.getElementById("containerCustomTasks");
+
+      function setChecklistSubtab(tab) {
+        currentChecklistSubtab = tab;
+        if (tab === 'habits') {
+          subtabDaily.className = "px-3.5 py-1.5 rounded-xl text-xs font-semibold transition active:scale-95 bg-brand-600 text-white shadow-xs";
+          subtabCustom.className = "px-3.5 py-1.5 rounded-xl text-xs font-semibold transition active:scale-95 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white";
+          contDaily.classList.remove("hidden");
+          contCustom.classList.add("hidden");
+        } else {
+          subtabCustom.className = "px-3.5 py-1.5 rounded-xl text-xs font-semibold transition active:scale-95 bg-brand-600 text-white shadow-xs";
+          subtabDaily.className = "px-3.5 py-1.5 rounded-xl text-xs font-semibold transition active:scale-95 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white";
+          contCustom.classList.remove("hidden");
+          contDaily.classList.add("hidden");
+        }
+      }
+
+      subtabDaily.addEventListener("click", () => setChecklistSubtab('habits'));
+      subtabCustom.addEventListener("click", () => setChecklistSubtab('custom'));
+
+      // Daily Habit Add
+      document.getElementById("btnAddChecklistTask").addEventListener("click", () => {
+        const input = document.getElementById("newChecklistInput");
+        const cat = document.getElementById("newChecklistCategory");
+        if (input && input.value.trim()) {
+          state.dailyHabits.push({
+            id: 'c_' + Math.random().toString(36).substr(2, 9),
+            title: input.value.trim(),
+            category: cat.value,
+            done: false
+          });
+          input.value = "";
+          saveState();
+          renderDailyHabits();
+          showToast("Daily habit added!");
+        }
+      });
+
+      document.getElementById("btnResetDailyChecklist").addEventListener("click", () => {
+        state.dailyHabits.forEach(t => t.done = false);
+        saveState();
+        renderDailyHabits();
+        showToast("Checklist reset for a fresh study day!");
+      });
+
+      // Custom Task Maker Modal Handlers
+      const taskModal = document.getElementById("customTaskModal");
+      document.getElementById("btnOpenNewTaskModal").addEventListener("click", () => {
+        document.getElementById("taskModalTitleInput").value = "";
+        document.getElementById("taskModalGoalInput").value = "";
+        document.getElementById("taskModalMemoInput").value = "";
+        document.getElementById("taskModalDateInput").value = "";
+        taskModal.classList.remove("hidden");
+      });
+      document.getElementById("btnCloseCustomTaskModal").addEventListener("click", () => taskModal.classList.add("hidden"));
+      document.getElementById("btnCancelCustomTaskModal").addEventListener("click", () => taskModal.classList.add("hidden"));
+
+      document.getElementById("btnSaveCustomTaskModal").addEventListener("click", () => {
+        const title = document.getElementById("taskModalTitleInput").value.trim();
+        if (!title) {
+          showToast("Please enter a task title", "warning");
+          return;
+        }
+
+        const cat = document.getElementById("taskModalCategorySelect").value;
+        const priority = document.getElementById("taskModalPrioritySelect").value;
+        const date = document.getElementById("taskModalDateInput").value;
+        const goal = document.getElementById("taskModalGoalInput").value.trim();
+        const memo = document.getElementById("taskModalMemoInput").value.trim();
+
+        state.customTasks.unshift({
+          id: 'ct_' + Math.random().toString(36).substr(2, 9),
+          title: title,
+          category: cat,
+          priority: priority,
+          target_date: date,
+          goal: goal,
+          memo: memo,
+          status: 'pending'
+        });
+
+        saveState();
+        renderCustomTasks();
+        taskModal.classList.add("hidden");
+        setChecklistSubtab('custom');
+        showToast("Milestone task created!");
+      });
+
+      // Custom Task Filter Buttons
+      const taskCatBtns = [
+        { id: "filterTaskCatAll", val: 'all' },
+        { id: "filterTaskCatPrelims", val: 'Prelims' },
+        { id: "filterTaskCatCSAT", val: 'CSAT' },
+        { id: "filterTaskCatMocks", val: 'Mocks' },
+        { id: "filterTaskCatMains", val: 'Mains' }
+      ];
+
+      taskCatBtns.forEach(item => {
+        const btn = document.getElementById(item.id);
+        if (btn) {
+          btn.addEventListener("click", () => {
+            currentTaskCategoryFilter = item.val;
+            taskCatBtns.forEach(b => {
+              const el = document.getElementById(b.id);
+              if (el) el.className = "px-2.5 py-1 rounded-lg font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0";
+            });
+            btn.className = "px-2.5 py-1 rounded-lg font-semibold bg-brand-600 text-white shrink-0";
+            renderCustomTasks();
+          });
+        }
+      });
+
+      document.getElementById("filterTaskStatus").addEventListener("change", (e) => {
+        currentTaskStatusFilter = e.target.value;
+        renderCustomTasks();
+      });
+      document.getElementById("filterTaskPriority").addEventListener("change", (e) => {
+        currentTaskPriorityFilter = e.target.value;
+        renderCustomTasks();
+      });
+
+      // GS Filters
+      const gsTabs = [
+        { btn: document.getElementById("tabGSAll"), val: 'all' },
+        { btn: document.getElementById("tabGS1"), val: '1' },
+        { btn: document.getElementById("tabGS2"), val: '2' },
+        { btn: document.getElementById("tabGS3"), val: '3' },
+        { btn: document.getElementById("tabGS4"), val: '4' }
+      ];
+
+      gsTabs.forEach(item => {
+        item.btn.addEventListener("click", () => {
+          currentGSPaperFilter = item.val;
+          gsTabs.forEach(t => {
+            t.btn.className = "px-3.5 py-1.5 rounded-xl text-xs font-semibold transition active:scale-95 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white shrink-0";
+          });
+          item.btn.className = "px-3.5 py-1.5 rounded-xl text-xs font-semibold transition active:scale-95 bg-orange-600 text-white shadow-xs shrink-0";
+          renderGS();
+        });
+      });
+
+      // Keyword Extractor
+      document.getElementById("btnRunKeywordExtraction").addEventListener("click", runKeywordExtraction);
+      const kwModal = document.getElementById("customKeywordModal");
+      const kwTextInput = document.getElementById("modalCustomKwText");
+      const kwSubSelect = document.getElementById("modalCustomKwSubject");
+
+      document.getElementById("btnManualAddKeyword").addEventListener("click", () => {
+        kwTextInput.value = "";
+        kwModal.classList.remove("hidden");
+        kwTextInput.focus();
+      });
+      document.getElementById("btnCloseKwModal").addEventListener("click", () => kwModal.classList.add("hidden"));
+      document.getElementById("btnCancelKwModal").addEventListener("click", () => kwModal.classList.add("hidden"));
+
+      document.getElementById("btnSubmitCustomKw").addEventListener("click", () => {
+        const text = kwTextInput.value.trim();
+        if (!text) {
+          showToast("Please enter a keyword", "warning");
+          return;
+        }
+        state.keywords.unshift({
+          id: 'kw_' + Math.random().toString(36).substr(2, 9),
+          text: text,
+          subject: kwSubSelect.value,
+          addedAt: new Date().toISOString()
+        });
+        saveState();
+        renderKeywords();
+        kwModal.classList.add("hidden");
+        showToast(`Saved keyword "${text}"`);
+      });
+
+      // Keyword Filters
+      const kwFilterBtns = [
+        { id: "filterKwAll", val: 'all' },
+        { id: "filterKwGS1", val: 'GS1' },
+        { id: "filterKwGS2", val: 'GS2' },
+        { id: "filterKwGS3", val: 'GS3' },
+        { id: "filterKwGS4", val: 'GS4' },
+        { id: "filterKwMaths", val: 'Maths' }
+      ];
+
+      kwFilterBtns.forEach(item => {
+        const btn = document.getElementById(item.id);
+        if (btn) {
+          btn.addEventListener("click", () => {
+            currentKwSubjectFilter = item.val;
+            kwFilterBtns.forEach(b => {
+              const el = document.getElementById(b.id);
+              if (el) el.className = "px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0";
+            });
+            btn.className = "px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-600 text-white shrink-0";
+            renderKeywords();
+          });
+        }
+      });
+
+      document.getElementById("btnCopyAllKeywords").addEventListener("click", () => {
+        const filtered = state.keywords.filter(kw => {
+          if (currentKwSubjectFilter === 'all') return true;
+          if (currentKwSubjectFilter === 'Maths') return kw.subject.includes('Maths');
+          return kw.subject === currentKwSubjectFilter;
+        });
+        const listText = filtered.map(k => k.text).join(", ");
+        copyToClipboard(listText);
+        showToast(`Copied ${filtered.length} keywords to clipboard!`);
+      });
+
+      // Google Drive Sync & Backup
+      document.getElementById("btnOpenDriveSync").addEventListener("click", () => switchView('analytics'));
+      document.getElementById("btnSaveDirectToDrive").addEventListener("click", saveDirectToGoogleDrive);
+      document.getElementById("btnConnectGoogleDrive").addEventListener("click", syncWithGoogleDriveCloud);
+      const btnPullDrive = document.getElementById("btnRestoreFromCloudDrive");
+      if (btnPullDrive) btnPullDrive.addEventListener("click", restoreFromGoogleDriveCloud);
+      document.getElementById("btnCloseDriveDirectModal").addEventListener("click", () => {
+        document.getElementById("driveDirectModal").classList.add("hidden");
+      });
+      document.getElementById("btnOpenDriveWeb").addEventListener("click", () => {
+        window.open("https://drive.google.com/drive/my-drive", "_blank");
+      });
+      document.getElementById("btnDownloadBackupModal").addEventListener("click", () => {
+        exportJSONBackup();
+      });
+      document.getElementById("btnExportJSON").addEventListener("click", exportJSONBackup);
+      
+      const jsonFileInput = document.getElementById("jsonFileInput");
+      document.getElementById("btnTriggerImportJSON").addEventListener("click", () => jsonFileInput.click());
+      jsonFileInput.addEventListener("change", (e) => {
+        if (e.target.files && e.target.files[0]) importJSONBackup(e.target.files[0]);
+      });
+
+      // Transfer Payload Modal
+      const transferModal = document.getElementById("deviceTransferModal");
+      const transferArea = document.getElementById("deviceTransferPayloadArea");
+      document.getElementById("btnCopySyncPayload").addEventListener("click", () => {
+        transferArea.value = JSON.stringify(state, null, 2);
+        transferModal.classList.remove("hidden");
+      });
+      document.getElementById("btnCloseTransferModal").addEventListener("click", () => transferModal.classList.add("hidden"));
+      document.getElementById("btnCloseTransferModalBtn").addEventListener("click", () => transferModal.classList.add("hidden"));
+      document.getElementById("btnCopyTransferPayload").addEventListener("click", () => {
+        copyToClipboard(transferArea.value);
+        showToast("Sync payload copied to clipboard!");
+      });
+      document.getElementById("btnApplyTransferPayload").addEventListener("click", () => {
+        try {
+          const parsed = JSON.parse(transferArea.value);
+          if (parsed && (parsed.maths || parsed.gs)) {
+            state = Object.assign(state, parsed);
+            state.maths = normalizeMathsTopics(state.maths || INITIAL_MATHS_TOPICS);
+            state.gs = normalizeGSTopics(state.gs || INITIAL_GS_MODULES);
+            saveState();
+            renderMaths();
+            renderGS();
+            renderChecklist();
+            renderKeywords();
+            renderAnalyticsCharts();
+            updateStreakDisplay();
+            updatePrelimsCountdown();
+            transferModal.classList.add("hidden");
+            showToast("Progress synchronized from payload!");
+          } else {
+            showToast("Invalid payload format", "warning");
+          }
+        } catch (err) {
+          showToast("Failed to parse JSON string", "warning");
+        }
+      });
+
+      document.getElementById("btnToggleGdriveSettings").addEventListener("click", () => {
+        document.getElementById("gdriveSettingsBox").classList.toggle("hidden");
+      });
+
+      document.getElementById("btnSaveClientId").addEventListener("click", () => {
+        const raw = document.getElementById("gdriveClientIdInput").value;
+        const val = (raw || "").trim().replace(/^["']|["']$/g, '');
+
+        if (!val) {
+          showToast("Please enter your Google Cloud OAuth Client ID", "warning");
+          return;
+        }
+
+        if (val.startsWith("GOCSPX-")) {
+          showToast("⚠️ That is your Client Secret (GOCSPX-), NOT your Client ID! Please copy the Client ID ending with .apps.googleusercontent.com", "warning");
+          return;
+        }
+
+        if (!val.includes(".apps.googleusercontent.com")) {
+          showToast("⚠️ Invalid format! The Client ID must end with .apps.googleusercontent.com", "warning");
+          return;
+        }
+
+        state.gdriveClientId = val;
+        saveState();
+        initGoogleDriveAuth();
+        const gdriveStatus = document.getElementById("gdriveClientIdStatus");
+        if (gdriveStatus) {
+          gdriveStatus.innerHTML = `<span class="text-emerald-600 dark:text-emerald-400 font-semibold">✓ Client ID active:</span> <span class="font-mono text-[10px] text-slate-600 dark:text-slate-400">${val.substring(0, 16)}...apps.googleusercontent.com</span>`;
+        }
+        showToast("Google Client ID saved successfully!");
+      });
+
+      // Factory Reset
+      document.getElementById("btnResetData").addEventListener("click", () => {
+        state.maths = normalizeMathsTopics(JSON.parse(JSON.stringify(INITIAL_MATHS_TOPICS)));
+        state.gs = normalizeGSTopics(JSON.parse(JSON.stringify(INITIAL_GS_MODULES)));
+        state.dailyHabits = JSON.parse(JSON.stringify(INITIAL_DAILY_HABITS));
+        state.customTasks = JSON.parse(JSON.stringify(INITIAL_CUSTOM_TASKS));
+        state.topicFiles = {};
+        state.streak = 1;
+        extractInitialKeywords();
+        saveState();
+        renderMaths();
+        renderGS();
+        renderChecklist();
+        renderKeywords();
+        renderAnalyticsCharts();
+        updateStreakDisplay();
+        updatePrelimsCountdown();
+        showToast("All data reset to syllabus defaults.", "warning");
+      });
+
+      // Initial Renders
+      renderMaths();
+      renderGS();
+      renderKeywords();
+      renderChecklist();
+      updateStreakDisplay();
+      updatePrelimsCountdown();
+      updateOptionalCountdown();
+
+      // Initialize GDrive Client ID input and status if already saved
+      const gdriveInput = document.getElementById("gdriveClientIdInput");
+      const gdriveStatus = document.getElementById("gdriveClientIdStatus");
+      if (gdriveInput && state.gdriveClientId) {
+        gdriveInput.value = state.gdriveClientId;
+        if (gdriveStatus) {
+          gdriveStatus.innerHTML = `<span class="text-emerald-600 dark:text-emerald-400 font-semibold">✓ Client ID active:</span> <span class="font-mono text-[10px] text-slate-600 dark:text-slate-400">${state.gdriveClientId.substring(0, 16)}...apps.googleusercontent.com</span>`;
+        }
+      }
+      setTimeout(initGoogleDriveAuth, 500);
+    });
+  </script>
+</body>
+</html>
